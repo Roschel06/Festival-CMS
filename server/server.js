@@ -5,7 +5,7 @@ require('dotenv').config()
 db()
 
 app.use(express.json())
-
+app.use('/images', express.static('./uploads'))
 app.use('/user', require('./routes/userRoutes'))
 
 const port = process.env.PORT || 5000

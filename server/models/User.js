@@ -8,7 +8,7 @@ const userSchema = new Schema({
         unique: true
     },
 
-/*     firstName: {
+    firstName: {
         type: String,
         required: true,
     },
@@ -16,7 +16,7 @@ const userSchema = new Schema({
     lastName: {
         type: String,
         required: true
-    }, */
+    },
 
     password: {
         type: String,
@@ -25,12 +25,12 @@ const userSchema = new Schema({
 
     image: {
         type: String
-    }
+    },
 
-/*     role: {
+    role: {
         type: String,
         required: true
-    } */
+    }
 }) 
 
 module.exports = mongoose.model('User', userSchema)

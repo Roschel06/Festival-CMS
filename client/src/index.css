@@ -11,3 +11,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.imgUpload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.imgUpload img {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  border-radius: 100%;
+  border: 1px solid #c4c4c4;
+}
+.imgUpload label {
+  position: relative;
+}
+
+.imgUploadBtn {
+  position: absolute;
+}
+.imgHere svg,
+.imgHere p {
+  color: white;
+  text-shadow: 0 0px 10px black;
+  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+}
