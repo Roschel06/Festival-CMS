@@ -12,15 +12,15 @@
  
      },
      filename: function (req, file, cb) {
-     
+     console.log(file);
          let extension = ''
          
          if (file.mimetype.includes('image')) {
  
              extension = file.mimetype.slice(6)
          }
-       const uniqueSuffix = req.body._id + '-' + Date.now() + '.' + extension
-       cb(null, file.fieldname + '-' + uniqueSuffix)
+       const uniqueSuffix = req.body._id + '.' + extension
+       cb(null, file.originalname + '-' + uniqueSuffix)
      }
    })
    

@@ -18,7 +18,12 @@ import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios';
 
 
-const pages = ['Stages', 'Bands', 'Facilities', 'Food services', 'Shopping'];
+const pages = [
+  {name: 'Stages', path: 'stages'},
+  {name: 'Bands', path: 'bands'},
+  {name: 'Facilities', path: 'facilities'},
+  {name: 'Food services', path: 'food-services'},
+  {name: 'Shopping', path: 'shopping'}]
 const settings = ['Profile', 'Account', 'Dashboard'];
 
 function ResponsiveAppBar() {
@@ -111,9 +116,9 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">
-                        <Link style={{textDecoration: "none", color: "white"}} to={`/${page}`}>{page}</Link>
+                        <Link style={{textDecoration: "none", color: "black"}} to={`/${page.path}`}>{page.name}</Link>
                     </Typography>
                 </MenuItem>
               ))}
@@ -141,11 +146,11 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.name}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link style={{textDecoration: "none", color: "white"}} to={`/${page}`}>{page}</Link>
+                <Link style={{textDecoration: "none", color: "white"}} to={`/${page.path}`}>{page.name}</Link>
               </Button>
             ))}
           </Box>

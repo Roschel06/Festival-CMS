@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express()
+const cookieParser = require('cookie-parser')
 const db = require('./config/db')
 require('dotenv').config()
 db()
 
 app.use(express.json())
+app.use(cookieParser())
 app.use('/images', express.static('./uploads'))
 app.use('/user', require('./routes/userRoutes'))
 

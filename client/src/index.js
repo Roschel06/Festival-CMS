@@ -15,6 +15,10 @@ import Facilities from './components/Facilities';
 import FoodServices from './components/FoodServices';
 import Shopping from './components/Shopping';
 import Profile from './components/Profile';
+import ProtectedRoutes from './components/ProtectedRoutes'
+import EmailConfirm from './components/EmailConfirm'
+import ForgotPassword from './components/ForgotPassword'
+import ChangePassword from './components/ChangePassword'
 
 //import ContextProvider from './components/Context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -25,8 +29,11 @@ root.render(
                 <Route element={<LoginLayout />}>
                     <Route path='/' element={<Login />} />
                     <Route path='/register' element={<Register />} />
+                    <Route path='/email-confirm/:token' element={<EmailConfirm />} />
+                    <Route path='/forgot-password' element={<ForgotPassword />} />
+                    <Route path='/change-password/:token' element={<ChangePassword />} />
                 </Route>
-
+                <Route element={<ProtectedRoutes />}>
                     <Route element={<UserLayout />}>
                         <Route path='/dashboard' element={<Dashboard />} />
                         <Route path='/stages' element={<Stages />} />
@@ -36,7 +43,7 @@ root.render(
                         <Route path='/shopping' element={<Shopping />} />
                         <Route path='/profile' element={<Profile />} />
                     </Route>
-
+                </Route>
             </Routes>
         
         </BrowserRouter>

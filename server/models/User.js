@@ -9,13 +9,11 @@ const userSchema = new Schema({
     },
 
     firstName: {
-        type: String,
-        required: true,
+        type: String
     },
 
     lastName: {
-        type: String,
-        required: true
+        type: String
     },
 
     password: {
@@ -28,8 +26,11 @@ const userSchema = new Schema({
     },
 
     role: {
-        type: String,
-        required: true
+        type: String
+    },
+    verified: {
+        type: Boolean,
+        default: false
     }
 }) 
 
