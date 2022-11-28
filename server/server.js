@@ -7,8 +7,11 @@ db()
 
 app.use(express.json())
 app.use(cookieParser())
+
 app.use('/images', express.static('./uploads'))
 app.use('/user', require('./routes/userRoutes'))
+
+app.use('/festival', require('./routes/festivalRoutes'))
 
 const port = process.env.PORT || 5000
 

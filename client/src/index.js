@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import ContextProvider from './components/Context';
 import LoginLayout from './layouts/LoginLayout'
@@ -19,6 +18,7 @@ import ProtectedRoutes from './components/ProtectedRoutes'
 import EmailConfirm from './components/EmailConfirm'
 import ForgotPassword from './components/ForgotPassword'
 import ChangePassword from './components/ChangePassword'
+import Festival from './components/Festival'
 
 //import ContextProvider from './components/Context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -34,6 +34,9 @@ root.render(
                     <Route path='/change-password/:token' element={<ChangePassword />} />
                 </Route>
                 <Route element={<ProtectedRoutes />}>
+                    <Route element={<LoginLayout />}>
+                        <Route path='/festival' element={<Festival />} />
+                    </Route>
                     <Route element={<UserLayout />}>
                         <Route path='/dashboard' element={<Dashboard />} />
                         <Route path='/stages' element={<Stages />} />

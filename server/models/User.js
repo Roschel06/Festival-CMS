@@ -24,14 +24,17 @@ const userSchema = new Schema({
     image: {
         type: String
     },
-
     role: {
         type: String
     },
     verified: {
         type: Boolean,
         default: false
-    }
+    },
+    festivals: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Festival'
+    }]
 }) 
 
 module.exports = mongoose.model('User', userSchema)

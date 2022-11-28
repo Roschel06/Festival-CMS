@@ -56,6 +56,7 @@ export default function ChangePassword() {
                 required
                 fullWidth
                 id="password"
+                type="password"
                 label="Password"
                 name="password"
                 autoComplete="password"
@@ -70,6 +71,7 @@ export default function ChangePassword() {
                 required
                 fullWidth
                 id="verifyPassword"
+                type="password"
                 label="Password"
                 name="verifyPassword"
                 autoComplete="password"

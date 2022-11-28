@@ -19,6 +19,12 @@ export default function ContextProvider({children}) {
                 return {
                     user: {}
                 }
+
+/*             case ('festival'):
+                return {
+                    ...state,
+                    festival: action.payload
+                } */
             default:
                 return
         }

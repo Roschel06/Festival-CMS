@@ -46,7 +46,7 @@ export default function Profile() {
 
         Object.entries(data).forEach(item => formdata.set(item[0], item[1]))
         
-        if(file) formdata.set('image', file, 'profileimage')
+        if(file) formdata.set('image', file, 'profile-image')
 
         const config = {
             Headers: {'content-type': 'multipart/form-data'}
