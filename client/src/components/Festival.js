@@ -13,7 +13,7 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import {useState, useContext, useEffect} from 'react'
 import axios from 'axios'
 import { AppContext } from './Context'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, Link} from 'react-router-dom'
 
 export default function Festival() {
 
@@ -22,17 +22,25 @@ export default function Festival() {
     const {state, dispatch} = useContext(AppContext)
     const navigate = useNavigate()
     const [name, setName] = useState('')
+/*     const [festivalList, setFestivalList] = useState()
     
-  useEffect(() => {
+   useEffect(() => {
     getData()
   }, [])
-
+ 
 
     const getData = async () => {
 
-      const response = await axios.get('/festival/list')
-      console.log("🚀 ~ response of the festival list: ", response)
-    } 
+      const {data} = await axios.get('/festival/list')
+      setFestivalList(data)
+      console.log("🚀 ~ response of the festival list: ", data)
+    }  */
+
+
+    
+
+
+
 
     const handleSave = async (event) => {
       event.preventDefault();
@@ -42,7 +50,7 @@ export default function Festival() {
         owner: state.user._id
       })
       if (response.data.success) {
-        navigate('/dashboard')
+        navigate('/dashboard') // should link to /dashboard/${festival.name}
       }
     } 
     console.log("🚀 ~ state festivals ", state.user.festivals)
@@ -59,11 +67,23 @@ export default function Festival() {
       alignItems: 'center',
     }}
   >
-    <p>{state.user.email}</p>
-    <p>{state.user.festivals[4].name}</p> 
-       <Typography component="h1" variant="h5">
-      Add a festival
-    </Typography>
+    {state.user.festivals.length !== 0 ?
+      <>
+        <Typography component="h1" variant="h5">
+          Choose a festival
+        </Typography>
+        <br />
+        {state.user.festivals.map(festival => <Link key={festival.name} to={`/dashboard/${festival.name}`}>{festival.name}</Link>)}
+        <br />
+        <Typography component="h2" variant="h5">
+          Or create a new festival
+        </Typography>
+      </>
+    :
+      <Typography component="h1" variant="h5">
+        Create a festival
+      </Typography>
+    }
     <Box component="form" onSubmit={handleSave} noValidate sx={{ mt: 1 }}>
 
 {/*         <div className={"imgUpload"}>

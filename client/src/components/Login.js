@@ -32,7 +32,7 @@ export default function Login() {
 
   const handleLogin = async (event) => {
 
-      if ((!data.email && !data.username) || !data.password) {
+      if (!data.email || !data.password) {
           alert('Please provide some data')
           return
       }

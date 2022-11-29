@@ -11,6 +11,10 @@ module.exports.add = async (req, res) => {
             return
         }
 
+
+            // first: const = ...find festivals by name
+
+
         const newFestival = await Festival.create(req.body)
         console.log("🚀 ~ newFestival", newFestival)
         
@@ -39,19 +43,19 @@ module.exports.add = async (req, res) => {
         
     }
 }
-module.exports.list = async (req, res) => {
+/* module.exports.list = async (req, res) => {
     try {
 
-        const {owner} = req.body
+        const {email} = req.body
 
-        const user = await User.find({owner})
+        const user = await User.find({email})
         console.log("🚀 ~ user", user)
 
-        const festivals = await Festival.find({_id: user._id})
-        console.log("🚀 ~ festivals", festivals)
+        /* const festivals = await Festival.find({_id: user._id})
+        console.log("🚀 ~ festivals", festivals) 
 
         
-        res.send({success: true, festivals})
+        res.send({success: true, user})
     } catch (error) {
         
         console.log("🚀 ~ Error in list festival", error.message)
@@ -59,7 +63,7 @@ module.exports.list = async (req, res) => {
         res.send({success: false, error: error.message})
         
     }
-}
+} */
 /*         const festivals = await Festival.find()
         console.log("🚀 ~ festivals", festivals)
  */

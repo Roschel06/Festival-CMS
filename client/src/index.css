@@ -37,3 +37,7 @@ code {
   text-shadow: 0 0px 10px black;
   filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
 }
+.festivalName {
+  text-decoration: none;
+  color: #fff
+}

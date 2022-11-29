@@ -69,6 +69,7 @@ module.exports.login = async (req, res) => {
         }
 
         const userFound = await User.findOne({email, verified: true})
+        .populate({path: 'festivals', select: 'name'})
         .select('-__v')
 
         if (!userFound) return res.send({success: false, error: 2})

@@ -12,11 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { AppContext } from './Context'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios';
-
 
 const pages = [
   {name: 'Stages', path: 'stages'},
@@ -24,11 +23,15 @@ const pages = [
   {name: 'Facilities', path: 'facilities'},
   {name: 'Food services', path: 'food-services'},
   {name: 'Shopping', path: 'shopping'}]
-const settings = ['Profile', 'Account', 'Dashboard'];
+const settings = ['Profile'];
 
 function ResponsiveAppBar() {
 
+  
+  const {festivalName} = useParams();
+
     const {state, dispatch} = useContext(AppContext)
+    const [data, setData] = useState({...state.user})
     const navigate = useNavigate()
 
 
@@ -63,6 +66,18 @@ function ResponsiveAppBar() {
         }
 }
 
+/* useEffect(() => {
+  getData()
+})
+
+const getData = async () => {
+
+  setData(state.user)
+  console.log("🚀 ~ hello from setData ", data)
+} */
+
+console.log('Dashboard state is', state);
+console.log('Dashboard data is', data);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -72,7 +87,6 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/dashboard"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -83,7 +97,9 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            Festival CMS
+            {data.festivals.filter(item => item.name === festivalName).map((item, idx) => {
+              return <Link to={`/dashboard/${item.name}`} className='festivalName' key={idx}>{item.name}</Link>
+            })}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
