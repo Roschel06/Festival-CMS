@@ -90,10 +90,33 @@ const bandSchema = new Schema({
         }
     },
 
-    performances: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Festival'
-    }],
+    festivalSpecifications: [{
+        festival: {
+            type: Schema.Types.ObjectId,
+            ref: 'Festival' 
+        },
+        day: {
+            type: String
+        },
+        time: {
+            type: String
+        },
+        stage: {
+            type: String
+        },
+        fee: {
+            type: String
+        },
+        equipmentDemands: {
+            type: String
+        },
+        otherDemands: {
+            type: String
+        },
+        cancelled: {
+            type: Boolean
+        }
+    }]
 
 }) 
 

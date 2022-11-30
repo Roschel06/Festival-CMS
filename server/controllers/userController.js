@@ -70,6 +70,13 @@ module.exports.login = async (req, res) => {
 
         const userFound = await User.findOne({email, verified: true})
         .populate({path: 'festivals', select: 'name'})
+/*         .populate({ 
+            path: 'data',
+            populate: {
+              path: 'festivals',
+              ref: 'Festival'
+            } 
+         }) */
         .select('-__v')
 
         if (!userFound) return res.send({success: false, error: 2})

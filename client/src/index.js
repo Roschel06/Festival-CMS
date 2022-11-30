@@ -38,7 +38,8 @@ root.render(
                         <Route path='/festival' element={<Festival />} />
                     </Route>
                     <Route element={<UserLayout />}>
-                        <Route path='/dashboard/:festivalName' element={<Dashboard />} />
+                        {/* <Route path='/dashboard/:festivalName' element={<Dashboard />} /> */}
+                        <Route path='/dashboard' element={<Dashboard />} />
                         <Route path='/stages' element={<Stages />} />
                         <Route path='/bands' element={<Bands />} />
                         <Route path='/facilities' element={<Facilities />} />

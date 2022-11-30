@@ -46,7 +46,7 @@ export default function Login() {
                 type: 'login',
                 payload: {...response.data.user}
             })
-            navigate('/festival')
+            navigate('/dashboard')
       }
         
   }

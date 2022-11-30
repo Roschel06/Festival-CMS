@@ -50,10 +50,10 @@ export default function Festival() {
         owner: state.user._id
       })
       if (response.data.success) {
-        navigate('/dashboard') // should link to /dashboard/${festival.name}
+        navigate('/dashboard') // ??? should link to /dashboard/${festival.name}
       }
     } 
-    console.log("🚀 ~ state festivals ", state.user.festivals)
+    //console.log("🚀 ~ state festivals ", state.user.data.festivals)
 
   return (
 <ThemeProvider theme={theme}>

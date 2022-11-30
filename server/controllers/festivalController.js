@@ -30,6 +30,13 @@ module.exports.add = async (req, res) => {
             owner, 
             {$push: { festivals:  newFestival._id}}, 
             {new: true})
+/*             .populate({ 
+                path: 'data',
+                populate: {
+                  path: 'festivals',
+                  ref: 'Festival'
+                } 
+             }) */
             .populate({path: 'festivals', select: 'name'})
 
         console.log("🚀 ~ updateFestivalInUser", updateFestivalInUser) 
