@@ -19,7 +19,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import {useState, useContext} from 'react'
+import {useState, useContext,useEffect} from 'react'
 import axios from 'axios'
 import { AppContext } from './Context'
 
@@ -27,6 +27,7 @@ export default function Bands() {
   const theme = createTheme();
 
   const {state, dispatch} = useContext(AppContext)
+  
   const [name, setName] = useState('')
   //const [data, setData] = useState({...state.user})
   const [imgUrl, setImgUrl] = useState(state.user.image ? '/images/' + state.user.image : null)
@@ -41,8 +42,13 @@ export default function Bands() {
   const handleSave = async (event) => {
       event.preventDefault();
 
-      const response = await axios.post('/band/add',{name})
-      console.log("🚀 ~ band add response", response)
+      /* const response = await axios.post('/band/add',{name, _id: state.user._id})
+      console.log("🚀 ~ band add response", response) */
+
+      const response = await axios.post('/band/add',{
+        name,
+        owner: state.user._id
+      })
 
 /*       const formdata = new FormData()
 
@@ -66,8 +72,26 @@ export default function Bands() {
               alert('email and username are mandatory')
           }
       }
-console.log(data); */
+console.log(data); 
+*/
   } 
+
+
+/*   const [bandList, setBandList] = useState()
+    
+  useEffect(() => {
+   getData()
+  }, [])
+  
+  
+   const getData = async () => {
+  
+     const {data} = await axios.get('/band/list')
+     setBandList(data)
+     console.log("🚀 ~ response of the band list: ", data)
+   } */
+
+   console.log("🚀 ~ state at the end is ", state)
   return (      
 <ThemeProvider theme={theme}>
 <Container component="main" maxWidth="xs">

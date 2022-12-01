@@ -37,7 +37,7 @@ module.exports.add = async (req, res) => {
                   ref: 'Festival'
                 } 
              }) */
-            .populate({path: 'festivals', select: 'name'})
+        //.populate({path: 'festivals', select: 'name'})
 
         console.log("🚀 ~ updateFestivalInUser", updateFestivalInUser) 
 

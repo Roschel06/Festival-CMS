@@ -34,12 +34,13 @@ root.render(
                     <Route path='/change-password/:token' element={<ChangePassword />} />
                 </Route>
                 <Route element={<ProtectedRoutes />}>
-                    <Route element={<LoginLayout />}>
+                {/* <Route element={<LoginLayout />}>
                         <Route path='/festival' element={<Festival />} />
-                    </Route>
+                    </Route> */}
                     <Route element={<UserLayout />}>
                         {/* <Route path='/dashboard/:festivalName' element={<Dashboard />} /> */}
                         <Route path='/dashboard' element={<Dashboard />} />
+                        <Route path='/festival' element={<Festival />} />
                         <Route path='/stages' element={<Stages />} />
                         <Route path='/bands' element={<Bands />} />
                         <Route path='/facilities' element={<Facilities />} />
