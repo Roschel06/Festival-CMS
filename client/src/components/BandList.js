@@ -8,7 +8,7 @@ import {useState, useContext, useEffect} from 'react'
 import axios from 'axios'
 import { AppContext } from './Context'
 import {Link} from 'react-router-dom'
-import { dividerClasses } from '@mui/material';
+import Button from '@mui/material/Button';
 
 export default function BandList() {
 
@@ -16,6 +16,7 @@ export default function BandList() {
 
     const {state, dispatch} = useContext(AppContext)
     const [bandList, setBandList] = useState({...state.user})
+    console.log("🚀 ~ bandList", bandList)
     
     useEffect(() => {
         getData()
@@ -27,6 +28,7 @@ export default function BandList() {
     } 
 
     const filteredBands = bandList.bands.filter(item => item.owner === state.user._id)
+    console.log("🚀 ~ filteredBands", filteredBands)
 
   return (
     <ThemeProvider theme={theme}>
@@ -34,7 +36,7 @@ export default function BandList() {
     <CssBaseline />
     <Box
         sx={{
-        marginTop: 8,
+        marginTop: { xs: 2, sm: 4 , md: 8 },
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -43,7 +45,15 @@ export default function BandList() {
         <Typography component="h1" variant="h5">
             Bands in Database
         </Typography>
-        <Link to={'/add-band'} className='button'>Add new Band</Link>
+        <Link to={'/add-band'} > 
+            <Button
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Add new Band
+            </Button>
+          </Link>
 
         {filteredBands.map((item, idx) => {
             return <Link key={idx} to={`/bands/${item._id}`}>{item.name}</Link>

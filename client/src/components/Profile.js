@@ -71,14 +71,14 @@ console.log(data);
 <ThemeProvider theme={theme}>
 <Container component="main" maxWidth="xs">
   <CssBaseline />
-  <Box
-    sx={{
-      marginTop: 8,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    }}
-  >
+    <Box
+        sx={{
+        marginTop: { xs: 2, sm: 4 , md: 8 },
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        }}
+    >
     <Typography component="h1" variant="h5">
       Change your user data
     </Typography>

@@ -11,7 +11,10 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import MusicVideoTwoToneIcon from '@mui/icons-material/MusicVideoTwoTone';
+
+
+
 import { useContext, useState, useEffect } from 'react'
 import { AppContext } from './Context'
 import {Link, useNavigate, useParams} from 'react-router-dom'
@@ -67,41 +70,31 @@ function ResponsiveAppBar() {
         }
 }
 
-/* useEffect(() => {
-  getData()
-})
-
-const getData = async () => {
-
-  setData(state.user)
-  console.log("🚀 ~ hello from setData ", data)
-} */
-
-console.log('Dashboard state is', state);
-console.log('Dashboard data is', data);
+/* console.log('Header state is', state);
+console.log('Header data is', data); */
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            {data.festivals.filter(item => item.name === festivalName).map((item, idx) => {
-              return <Link to={`/dashboard/${item.name}`} className='festivalName' key={idx}>{item.name}</Link>
-            })}
+          <Link to={'/dashboard'} className='logo'>
+            <MusicVideoTwoToneIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            > 
+            Festival CMS
           </Typography>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -141,7 +134,7 @@ console.log('Dashboard data is', data);
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+{/*           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -159,7 +152,28 @@ console.log('Dashboard data is', data);
             }}
           >
             LOGO
-          </Typography>
+          </Typography> */}
+          <Link to={'/dashboard'} className='logo logo--xs'>
+            <MusicVideoTwoToneIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href=""
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              Festival CMS
+            </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -175,7 +189,7 @@ console.log('Dashboard data is', data);
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={state.user.firstName} src={'/images/' + data.image} />
               </IconButton>
             </Tooltip>
             <Menu

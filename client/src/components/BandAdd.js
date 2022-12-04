@@ -47,7 +47,7 @@ export default function BandAdd() {
       /* const response = await axios.post('/band/add',{name, _id: state.user._id})
       console.log("🚀 ~ band add response", response) */
 
-      const response = await axios.post('/band/add',{
+      const response = await axios.post('/bands/add',{
         name,
         owner: state.user._id
       })
@@ -105,7 +105,7 @@ console.log(data);
   <CssBaseline />
   <Box
     sx={{
-      marginTop: 8,
+      marginTop: { xs: 2, sm: 4 , md: 8 },
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
