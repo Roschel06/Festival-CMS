@@ -3,7 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -22,8 +21,9 @@ import Select from '@mui/material/Select';
 import {useState, useContext,useEffect} from 'react'
 import axios from 'axios'
 import { AppContext } from './Context'
+import {useNavigate} from 'react-router-dom'
 
-export default function Bands() {
+export default function BandAdd() {
   const theme = createTheme();
 
   const {state, dispatch} = useContext(AppContext)
@@ -32,6 +32,8 @@ export default function Bands() {
   //const [data, setData] = useState({...state.user})
   const [imgUrl, setImgUrl] = useState(state.user.image ? '/images/' + state.user.image : null)
   const [file, setFile] = useState(null) 
+
+  const navigate = useNavigate()
 
   const handleImageChange = (e) => {
       const url = URL.createObjectURL(e.currentTarget.files[0])
@@ -49,6 +51,11 @@ export default function Bands() {
         name,
         owner: state.user._id
       })
+      console.log("🚀 ~ response from add band ", response)
+
+      if (response.data.success) {
+          navigate('/bands')
+      }
 
 /*       const formdata = new FormData()
 
@@ -91,7 +98,7 @@ console.log(data);
      console.log("🚀 ~ response of the band list: ", data)
    } */
 
-   console.log("🚀 ~ state at the end is ", state)
+   //console.log("🚀 ~ state at the end is ", state)
   return (      
 <ThemeProvider theme={theme}>
 <Container component="main" maxWidth="xs">

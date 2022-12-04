@@ -9,7 +9,9 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Dashboard from './components/Dashboard'
 import Stages from './components/Stages';
-import Bands from './components/Bands';
+import BandList from './components/BandList';
+import BandDetails from './components/BandDetails';
+import BandAdd from './components/BandAdd';
 import Facilities from './components/Facilities';
 import FoodServices from './components/FoodServices';
 import Shopping from './components/Shopping';
@@ -42,7 +44,9 @@ root.render(
                         <Route path='/dashboard' element={<Dashboard />} />
                         <Route path='/festival' element={<Festival />} />
                         <Route path='/stages' element={<Stages />} />
-                        <Route path='/bands' element={<Bands />} />
+                        <Route path='/bands' element={<BandList />} />
+                        <Route path='/bands/:id' element={<BandDetails />} />
+                        <Route path='/add-band' element={<BandAdd />} />
                         <Route path='/facilities' element={<Facilities />} />
                         <Route path='/food-services' element={<FoodServices />} />
                         <Route path='/shopping' element={<Shopping />} />
