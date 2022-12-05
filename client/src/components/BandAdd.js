@@ -1,5 +1,3 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -25,77 +23,66 @@ export default function BandAdd() {
 
   const {state, dispatch} = useContext(AppContext)
   
-  const [name, setName] = useState('')
   //const [data, setData] = useState({...state.user})
-  const [imgUrl, setImgUrl] = useState(state.user.image ? '/images/' + state.user.image : null)
+  //const [imgUrl, setImgUrl] = useState(state.user.image ? '/images/' + state.user.image : null)
   const [file, setFile] = useState(null) 
 
+
+  const [band, setBand] = useState({
+    name: '',
+    image: null,
+    countryOfOrigin: '',
+    owner: state.user._id,
+  })
+ 
   const navigate = useNavigate()
 
   const handleImageChange = (e) => {
       const url = URL.createObjectURL(e.currentTarget.files[0])
-      setImgUrl(url)
+      setBand({...band, image: url})
       setFile(e.currentTarget.files[0])
   }
 
   const handleSave = async (event) => {
       event.preventDefault();
 
-      /* const response = await axios.post('/band/add',{name, _id: state.user._id})
-      console.log("🚀 ~ band add response", response) */
-
-      const response = await axios.post('/bands/add',{
-        name,
+/*       const response = await axios.post('/bands/add',{
+        ...band,
         owner: state.user._id
-      })
+      }) 
+
       console.log("🚀 ~ response from add band ", response)
 
       if (response.data.success) {
           navigate('/bands')
-      }
+      } else {
+          if(response.data.errorId === 1){
+              alert('name is mandatory')
+          }
+    } */
 
-/*       const formdata = new FormData()
-
-      Object.entries(data).forEach(item => formdata.set(item[0], item[1]))
+      const formdata = new FormData()
+      Object.entries(band).forEach(item => formdata.set(item[0], item[1]))
       
-      if(file) formdata.set('image', file, 'profile-image')
-
+      if(file) formdata.set('image', file, 'band-logo')
       const config = {
           Headers: {'content-type': 'multipart/form-data'}
       }
-      const response = await axios.patch('/user/profile', formdata, config)
+      const response = await axios.post('/bands/add', formdata, config)
       console.log("🚀 ~ response", response)
 
+
       if (response.data.success) {
-              dispatch({
-                  type: 'login',
-                  payload: {...response.data.user}
-              })
+        navigate('/bands')
       } else {
           if(response.data.errorId === 1){
-              alert('email and username are mandatory')
+              alert('name is mandatory')
           }
       }
-console.log(data); 
-*/
+console.log('Band is ', band); 
+
+
   } 
-
-
-/*   const [bandList, setBandList] = useState()
-    
-  useEffect(() => {
-   getData()
-  }, [])
-  
-  
-   const getData = async () => {
-  
-     const {data} = await axios.get('/band/list')
-     setBandList(data)
-     console.log("🚀 ~ response of the band list: ", data)
-   } */
-
-   //console.log("🚀 ~ state at the end is ", state)
   return (      
 <Container component="main" maxWidth="xs">
   <Box
@@ -112,10 +99,9 @@ console.log(data);
     <Box component="form" onSubmit={handleSave} noValidate sx={{ mt: 1 }}>
 
         <div className={"imgUpload"}>
-            
             <IconButton color="primary" aria-label="upload picture" component="label">
-                <img src={imgUrl} alt=''/>
-                <div className={"imgUploadBtn " + (imgUrl ? 'imgHere' : '')}>
+                <img src={band.image} alt=''/>
+                <div className={"imgUploadBtn " + (band.image ? 'imgHere' : '')}>
                 <input hidden accept="image/*" type="file" onChange={handleImageChange}/>
                 <PhotoCamera />
                 <Typography textAlign="center">Upload band logo</Typography>
@@ -130,8 +116,17 @@ console.log(data);
             id="name"
             label="Band name"
             name="name"
-            value={name}
-            onChange={e => setName(e.target.value)}
+            value={band.name}
+            onChange={e => setBand({...band, name: e.target.value})}
+        />
+        <TextField
+            margin="normal"
+            fullWidth
+            id="countryOfOrigin"
+            label="Country of origin"
+            name="countryOfOrigin"
+            value={band.countryOfOrigin}
+            onChange={e => setBand({...band, countryOfOrigin: e.target.value})}
         />
         <Button
             type="submit"

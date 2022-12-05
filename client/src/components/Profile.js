@@ -61,7 +61,7 @@ export default function Profile() {
                 alert('email and username are mandatory')
             }
         }
-console.log(data);
+console.log('profile data is', data);
     } 
 
   return (

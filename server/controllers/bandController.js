@@ -12,18 +12,25 @@ module.exports.add = async (req, res) => {
             return
         }
 
-        const newBand = await Band.create({name: req.body.name, owner: owner})
-            
+        //const newBand = await Band.create({name: req.body.name, owner: owner})
+
+        const newBand = await Band.create(req.body)
+        //.then(item => item.populate({path: 'owner', select: '_id'}))
+        
         if (!newBand) {
             res.send({success: false, error: 2})
             return
         }    
-
-        const updateBandInUser = await User.findByIdAndUpdate(
+        
+/*         const updateBandInUser = await User.findByIdAndUpdate(
             owner, 
             {$push: { bands:  newBand._id}}, 
-            {new: true})
-
+            {new: true}) */
+            
+            
+        console.log("🚀 ~ newBand is ", newBand)
+        
+            
         res.send({success: true, newBand})
 
     } catch (error) {
