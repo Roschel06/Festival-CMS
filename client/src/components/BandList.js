@@ -1,6 +1,4 @@
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
@@ -11,8 +9,6 @@ import {Link} from 'react-router-dom'
 import Button from '@mui/material/Button';
 
 export default function BandList() {
-
-    const theme = createTheme();
 
     const {state, dispatch} = useContext(AppContext)
     const [bandList, setBandList] = useState({...state.user})
@@ -31,9 +27,7 @@ export default function BandList() {
     console.log("🚀 ~ filteredBands", filteredBands)
 
   return (
-    <ThemeProvider theme={theme}>
     <Container component="main" maxWidth="xs">
-    <CssBaseline />
     <Box
         sx={{
         marginTop: { xs: 2, sm: 4 , md: 8 },
@@ -60,6 +54,5 @@ export default function BandList() {
         })}
         </Box>
     </Container>
-    </ThemeProvider>
   )
 }

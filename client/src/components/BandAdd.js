@@ -1,14 +1,12 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
@@ -24,7 +22,6 @@ import { AppContext } from './Context'
 import {useNavigate} from 'react-router-dom'
 
 export default function BandAdd() {
-  const theme = createTheme();
 
   const {state, dispatch} = useContext(AppContext)
   
@@ -100,9 +97,7 @@ console.log(data);
 
    //console.log("🚀 ~ state at the end is ", state)
   return (      
-<ThemeProvider theme={theme}>
 <Container component="main" maxWidth="xs">
-  <CssBaseline />
   <Box
     sx={{
       marginTop: { xs: 2, sm: 4 , md: 8 },
@@ -149,7 +144,5 @@ console.log(data);
     </Box>
     </Box>
 </Container>
-</ThemeProvider>
-
   )
 }

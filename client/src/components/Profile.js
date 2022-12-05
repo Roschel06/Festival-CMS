@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
@@ -24,8 +23,6 @@ import axios from 'axios'
 import { AppContext } from './Context'
 
 export default function Profile() {
-
-    const theme = createTheme();
 
     const {state, dispatch} = useContext(AppContext)
 
@@ -68,7 +65,6 @@ console.log(data);
     } 
 
   return (
-<ThemeProvider theme={theme}>
 <Container component="main" maxWidth="xs">
   <CssBaseline />
     <Box
@@ -168,6 +164,6 @@ console.log(data);
     </Box>
     </Box>
 </Container>
-</ThemeProvider>
+
   );
 }

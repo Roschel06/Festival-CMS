@@ -1,11 +1,9 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
@@ -16,8 +14,6 @@ import { AppContext } from './Context'
 import {useNavigate, Link} from 'react-router-dom'
 
 export default function Festival() {
-
-    const theme = createTheme();
 
     const {state, dispatch} = useContext(AppContext)
     const navigate = useNavigate()
@@ -56,9 +52,7 @@ export default function Festival() {
     //console.log("🚀 ~ state festivals ", state.user.data.festivals)
 
   return (
-<ThemeProvider theme={theme}>
 <Container component="main" maxWidth="xs">
-  <CssBaseline />
   <Box
     sx={{
       marginTop: { xs: 2, sm: 4 , md: 8 },
@@ -120,6 +114,5 @@ export default function Festival() {
     </Box>
     </Box>
 </Container>
-</ThemeProvider>
   );
 }

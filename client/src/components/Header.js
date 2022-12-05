@@ -73,7 +73,7 @@ function ResponsiveAppBar() {
 /* console.log('Header state is', state);
 console.log('Header data is', data); */
   return (
-    <AppBar position="static">
+    <AppBar position="static" color="secondary">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link to={'/dashboard'} className='logo'>
@@ -189,7 +189,7 @@ console.log('Header data is', data); */
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={state.user.firstName} src={'/images/' + data.image} />
+                <Avatar alt={state.user.firstName} src={'/images/' + data.image}  sx={{ color: "#ffffff", bgcolor: ' rgb(255 255 255 / 25%)' }}/>
               </IconButton>
             </Tooltip>
             <Menu

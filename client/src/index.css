@@ -9,6 +9,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #d9d9e1;
 }
 
 code {
@@ -18,9 +19,7 @@ code {
 a {
   text-decoration: none !important;
 }
-.color--primary {
-  color: #1976d2;
-}
+
 /*----------------------------------------------------------*/
 /*---- Image Upload ---------------------------------------*/
 /*--------------------------------------------------------*/
@@ -69,18 +68,11 @@ a {
 .logo--xs + div + div {
   margin: 0;
 }
-.MuiButtonBase-root .MuiAvatar-root {
-  background: rgb(255 255 255 / 25%);
-}
 
 /*----------------------------------------------------------*/
 /*---- Dashboard ------------------------------------------*/
 /*--------------------------------------------------------*/
 
-.MuiCardHeader-root {
-  color: #1976d2;
-  border-bottom: 1px solid #f1f1f1;
-}
 .card__list a {
   display: block;
 }

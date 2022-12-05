@@ -1,4 +1,4 @@
-import {Icon, createTheme, ThemeProvider, Container, Grid, Card, CardContent, CardHeader, CardActionArea, Button, Typography } from '@mui/material';
+import {Container, Grid, Card, CardContent, CardHeader, CardActionArea, Button, Typography, Divider } from '@mui/material';
 import MusicNoteTwoToneIcon from '@mui/icons-material/MusicNoteTwoTone';
 
 import {Link} from 'react-router-dom'
@@ -10,16 +10,6 @@ import {useNavigate} from 'react-router-dom'
 
 export default function Dashboard() {
   const cards = [1, 2, 3, 4, 5, 6];
-  const theme = createTheme({
-    components: {
-      MuiIcon: {
-        defaultProps: {
-          // Replace the `material-icons` default value.
-          baseClassName: 'material-icons-two-tone',
-        },
-      },
-    },
-  });
   const navigate = useNavigate()
   const {state, dispatch} = useContext(AppContext)
   const [bandList, setBandList] = useState({...state.user})
@@ -38,8 +28,6 @@ export default function Dashboard() {
   console.log("🚀 ~ filteredBands", filteredBands)
 
   return (
-
-    <ThemeProvider theme={theme}>
     <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
             {cards.map((card) => (
@@ -51,16 +39,20 @@ export default function Dashboard() {
                   sx={{
                     display: 'flex',
                     justifyContent: 'flex-start',
-                    paddingLeft: 2
+                    padding: 2,
                     }}>
-                    <MusicNoteTwoToneIcon className="color--primary"/>
-                    <CardHeader
-                      title="Bands"
-                    />
+                    <MusicNoteTwoToneIcon  color="primary"/>
+                    <Typography variant="h5"  color="primary">
+                      Bands
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{marginLeft: 'auto', fontWeight: 500}}>
+                      {filteredBands.length}
+                    </Typography>
                   </CardActionArea>
+                    <Divider />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography variant="body2" color="text.secondary">
-                      Lorem
+                      Recently added / edited
                     </Typography>
                     <div className="card__list">
                       {filteredBands.map((item, idx) => {
@@ -82,6 +74,5 @@ export default function Dashboard() {
             ))}
           </Grid>
         </Container>
-    </ThemeProvider>
   )
 }
