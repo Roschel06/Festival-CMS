@@ -37,6 +37,29 @@ function App() {
             default: '#d2d7e7',
           },
       },
+    typography: {
+      h1: {
+        fontSize: '2.5rem',
+        fontWeight: 500,
+      },
+      h2: {
+        fontSize: '2.1rem',
+        fontWeight: 500,
+      },
+      h3: {
+        fontSize: '1.8rem',
+      },
+      h4: {
+        fontSize: '1.5rem',
+      },
+      h5: {
+        fontSize: '1.3rem',
+      },
+      h6: {
+        fontSize: '1.1rem',
+        fontWeight: 600,
+      },
+    }, 
     components: {
         MuiIcon: {
           defaultProps: {

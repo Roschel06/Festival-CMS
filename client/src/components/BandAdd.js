@@ -22,9 +22,6 @@ import {useNavigate} from 'react-router-dom'
 export default function BandAdd() {
 
   const {state, dispatch} = useContext(AppContext)
-  
-  //const [data, setData] = useState({...state.user})
-  //const [imgUrl, setImgUrl] = useState(state.user.image ? '/images/' + state.user.image : null)
   const [file, setFile] = useState(null) 
 
 
@@ -46,24 +43,9 @@ export default function BandAdd() {
   const handleSave = async (event) => {
       event.preventDefault();
 
-/*       const response = await axios.post('/bands/add',{
-        ...band,
-        owner: state.user._id
-      }) 
-
-      console.log("🚀 ~ response from add band ", response)
-
-      if (response.data.success) {
-          navigate('/bands')
-      } else {
-          if(response.data.errorId === 1){
-              alert('name is mandatory')
-          }
-    } */
-
       const formdata = new FormData()
       Object.entries(band).forEach(item => formdata.set(item[0], item[1]))
-      
+
       if(file) formdata.set('image', file, 'band-logo')
       const config = {
           Headers: {'content-type': 'multipart/form-data'}
@@ -75,7 +57,7 @@ export default function BandAdd() {
       if (response.data.success) {
         navigate('/bands')
       } else {
-          if(response.data.errorId === 1){
+          if(response.data.error === 1){
               alert('name is mandatory')
           }
       }

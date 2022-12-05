@@ -50,7 +50,7 @@ export default function BandList() {
           </Link>
 
         {filteredBands.map((item, idx) => {
-            return <Link key={idx} to={`/bands/${item._id}`}>{item.name}</Link>
+            return <Link key={idx} to={`/bands/${item._id}`}>{item.name}, {item.countryOfOrigin}</Link>
         })}
         </Box>
     </Container>

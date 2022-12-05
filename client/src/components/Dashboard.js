@@ -42,7 +42,7 @@ export default function Dashboard() {
                     padding: 2,
                     }}>
                     <MusicNoteTwoToneIcon  color="primary"/>
-                    <Typography variant="h5"  color="primary">
+                    <Typography variant="h4"  color="primary">
                       Bands
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{marginLeft: 'auto', fontWeight: 500}}>

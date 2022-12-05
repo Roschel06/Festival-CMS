@@ -14,17 +14,22 @@ const storage = new CloudinaryStorage({
     params: {
       folder: 'festivalCMS',
       format: async (req, file) => {
+      console.log("🚀 ~ file", file)
 
         let extension = '';
-
+        
         if (file.mimetype.includes('image')) {
- 
+            
             extension = file.mimetype.slice(6)
         }
+        console.log("🚀 ~ extension", extension)
 
         return extension
       },
-      public_id: (req, file) => (req.body._id + '-' + Date.now()),
+      public_id: (req, file) => {
+        
+          console.log("🚀 ~ req.body", req.body)
+          return req.body.owner + '-' + Date.now()},
     },
   });
 

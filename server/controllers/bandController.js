@@ -6,13 +6,14 @@ module.exports.add = async (req, res) => {
     try {
 
         const {name, owner} = req.body
+        console.log("🚀 ~ req.body", req.body)
+        console.log("🚀 ~ profile: req.file", req.file)
 
         if (!name) {
             res.send({success: false, error: 1})
             return
         }
-
-        //const newBand = await Band.create({name: req.body.name, owner: owner})
+        if(req.file?.filename) req.body.image = req.file?.path
 
         const newBand = await Band.create(req.body)
         //.then(item => item.populate({path: 'owner', select: '_id'}))
@@ -21,12 +22,6 @@ module.exports.add = async (req, res) => {
             res.send({success: false, error: 2})
             return
         }    
-        
-/*         const updateBandInUser = await User.findByIdAndUpdate(
-            owner, 
-            {$push: { bands:  newBand._id}}, 
-            {new: true}) */
-            
             
         console.log("🚀 ~ newBand is ", newBand)
         
@@ -57,10 +52,13 @@ module.exports.list = async (req, res) => {
 module.exports.band = async (req, res) => {
     try {
 
-        const {_id} = req.body
-
-        const band = await Band.findOne({_id})
-        console.log("🚀 ~ band", band)
+        const band = await Band.findOne({_id: req.params.id})
+/*         .populate({
+            path: 'name',
+            select: 'band'
+        }) */
+        
+        console.log("🚀 ~ band in details is", band)
         
         res.send({success: true, band})
 
