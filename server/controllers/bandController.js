@@ -13,9 +13,12 @@ module.exports.add = async (req, res) => {
             res.send({success: false, error: 1})
             return
         }
+
         if(req.file?.filename) req.body.image = req.file?.path
 
-        const newBand = await Band.create(req.body)
+        const newBand = await Band.create(req.body, 
+            {$push: { contactPerson: {firstName, lastName}}}, 
+            {new: true})
         //.then(item => item.populate({path: 'owner', select: '_id'}))
         
         if (!newBand) {

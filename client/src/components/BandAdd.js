@@ -26,42 +26,56 @@ export default function BandAdd() {
 
 
   const [band, setBand] = useState({
-    name: '',
-    image: null,
-    countryOfOrigin: '',
     owner: state.user._id,
+    name: '',
+    logo: null,
+    image: null,
+    contactPerson: {
+      firstName: '',
+      lastName: '',
+    },
+    countryOfOrigin: '',
   })
  
   const navigate = useNavigate()
 
-  const handleImageChange = (e) => {
+  const handleLogoChange = (e) => {
       const url = URL.createObjectURL(e.currentTarget.files[0])
-      setBand({...band, image: url})
+      setBand({...band, logo: url})
       setFile(e.currentTarget.files[0])
   }
 
+/*   const handleImageChange = (e) => {
+      const url = URL.createObjectURL(e.currentTarget.files[0])
+      setBand({...band, image: url})
+      setFile(e.currentTarget.files[0])
+  } */
+
   const handleSave = async (event) => {
       event.preventDefault();
-
-      const formdata = new FormData()
+      
+ /*      const formdata = new FormData()
       Object.entries(band).forEach(item => formdata.set(item[0], item[1]))
-
+      
       if(file) formdata.set('image', file, 'band-logo')
       const config = {
-          Headers: {'content-type': 'multipart/form-data'}
+        Headers: {'content-type': 'multipart/form-data'}
       }
+      
       const response = await axios.post('/bands/add', formdata, config)
-      console.log("🚀 ~ response", response)
+      console.log("🚀 ~ response", response) */
+      
+      console.log('Contact Person is ', band.contactPerson); 
 
-
-      if (response.data.success) {
+/*       if (response.data.success) {
         navigate('/bands')
       } else {
           if(response.data.error === 1){
               alert('name is mandatory')
           }
-      }
-console.log('Band is ', band); 
+      } */
+
+//console.log('Band is ', band); 
 
 
   } 
@@ -82,15 +96,24 @@ console.log('Band is ', band);
 
         <div className={"imgUpload"}>
             <IconButton color="primary" aria-label="upload picture" component="label">
-                <img src={band.image} alt=''/>
-                <div className={"imgUploadBtn " + (band.image ? 'imgHere' : '')}>
-                <input hidden accept="image/*" type="file" onChange={handleImageChange}/>
+                <img src={band.logo} alt=''/>
+                <div className={"imgUploadBtn " + (band.logo ? 'imgHere' : '')}>
+                <input hidden accept="image/*" type="file" onChange={handleLogoChange}/>
                 <PhotoCamera />
                 <Typography textAlign="center">Upload band logo</Typography>
                 </div>
             </IconButton>
         </div>
-
+{/*         <div className={"imgUpload"}>
+            <IconButton color="primary" aria-label="upload picture" component="label">
+                <img src={band.image} alt=''/>
+                <div className={"imgUploadBtn " + (band.image ? 'imgHere' : '')}>
+                <input hidden accept="image/*" type="file" onChange={handleImageChange}/>
+                <PhotoCamera />
+                <Typography textAlign="center">Upload band image</Typography>
+                </div>
+            </IconButton>
+        </div> */}
         <TextField
             margin="normal"
             required
@@ -109,6 +132,27 @@ console.log('Band is ', band);
             name="countryOfOrigin"
             value={band.countryOfOrigin}
             onChange={e => setBand({...band, countryOfOrigin: e.target.value})}
+        />
+        <Typography component="h3" variant="h5">
+          Contact person
+        </Typography>
+        <TextField
+            margin="normal"
+            fullWidth
+            id="firstName"
+            label="First name"
+            name="firstName"
+            value={band.contactPerson.firstName}
+            onChange={e => setBand({...band, contactPerson: {firstName: e.target.value}})}
+        />
+        <TextField
+            margin="normal"
+            fullWidth
+            id="lastName"
+            label="Last name"
+            name="lastName"
+            value={band.contactPerson.lastName}
+            onChange={e => setBand({...band, contactPerson: {lastName: e.target.value}})}
         />
         <Button
             type="submit"

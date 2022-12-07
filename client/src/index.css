@@ -52,12 +52,23 @@ a {
 /*----------------------------------------------------------*/
 /*---- AppBar ---------------------------------------------*/
 /*--------------------------------------------------------*/
-
+header a {
+  color: #fff;
+}
+header a:hover{
+  color: #889fce;
+}
 .logo {
   text-decoration: none;
   color: #fff;
   display: flex;
   align-items: center;
+  font-weight: 700;
+  letter-spacing: .3rem;
+  color: inherit;
+}
+.logo svg {
+  margin-top: -3px;
 }
 .logo + div {
   flex-grow: unset;
@@ -90,10 +101,21 @@ a {
       font-size: 1rem;
   }
 }
+@media screen and (max-width: 899px) {
+  .logo {
+    display: none;
+  }
+  .logo--xs {
+    display: flex;
+  }
+}
 
 @media screen and (min-width: 900px) {
     .logo--xs {
-      margin: 0;
+      display: none;
+  }
+  .logo {
+    margin-right: 2rem;
   }
     .MuiToolbar-root div:last-child {
     margin-left: auto;

@@ -13,9 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import MusicVideoTwoToneIcon from '@mui/icons-material/MusicVideoTwoTone';
 
-
-
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 import { AppContext } from './Context'
 import {Link, useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios';
@@ -32,7 +30,7 @@ const settings = ['Profile'];
 function ResponsiveAppBar() {
 
   
-  const {festivalName} = useParams();
+  //const {festivalName} = useParams();
 
     const {state, dispatch} = useContext(AppContext)
     const [data, setData] = useState({...state.user})
@@ -78,22 +76,7 @@ console.log('Header data is', data); */
         <Toolbar disableGutters>
           <Link to={'/dashboard'} className='logo'>
             <MusicVideoTwoToneIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            > 
             Festival CMS
-          </Typography>
           </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -134,45 +117,9 @@ console.log('Header data is', data); */
               ))}
             </Menu>
           </Box>
-{/*           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography> */}
           <Link to={'/dashboard'} className='logo logo--xs'>
             <MusicVideoTwoToneIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
               Festival CMS
-            </Typography>
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -181,7 +128,7 @@ console.log('Header data is', data); */
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link style={{textDecoration: "none", color: "white"}} to={`/${page.path}`}>{page.name}</Link>
+                <Link to={`/${page.path}`}>{page.name}</Link>
               </Button>
             ))}
           </Box>
