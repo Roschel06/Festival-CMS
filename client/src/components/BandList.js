@@ -1,12 +1,13 @@
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 import {useState, useContext, useEffect} from 'react'
 import axios from 'axios'
 import { AppContext } from './Context'
 import {Link} from 'react-router-dom'
-import Button from '@mui/material/Button';
+import {boxStyle} from './utilities/Box'
 
 export default function BandList() {
 
@@ -27,15 +28,8 @@ export default function BandList() {
     console.log("🚀 ~ filteredBands", filteredBands)
 
   return (
-    <Container component="main" maxWidth="xs">
-    <Box
-        sx={{
-        marginTop: { xs: 2, sm: 4 , md: 8 },
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        }}
-    >
+    <Container component="main" maxWidth="xl">
+     <Box sx={boxStyle}>  
         <Typography component="h1" variant="h5">
             Bands in Database
         </Typography>

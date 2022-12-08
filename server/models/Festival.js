@@ -20,7 +20,7 @@ const festivalSchema = new Schema({
     }],
     bands: [{
         type: Schema.Types.ObjectId,
-        ref: 'Band'
+        ref: 'Bandinfestival'
     }],
     facilities: [{
         type: Schema.Types.ObjectId,

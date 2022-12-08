@@ -18,6 +18,7 @@ import {useState, useContext,useEffect} from 'react'
 import axios from 'axios'
 import { AppContext } from './Context'
 import {useNavigate} from 'react-router-dom'
+import {boxStyle} from './utilities/Box'
 
 export default function BandAdd() {
 
@@ -30,10 +31,8 @@ export default function BandAdd() {
     name: '',
     logo: null,
     image: null,
-    contactPerson: {
-      firstName: '',
-      lastName: '',
-    },
+    contactFirstName: '',
+    contactLastName: '',
     countryOfOrigin: '',
   })
  
@@ -54,7 +53,7 @@ export default function BandAdd() {
   const handleSave = async (event) => {
       event.preventDefault();
       
- /*      const formdata = new FormData()
+      const formdata = new FormData()
       Object.entries(band).forEach(item => formdata.set(item[0], item[1]))
       
       if(file) formdata.set('image', file, 'band-logo')
@@ -63,32 +62,24 @@ export default function BandAdd() {
       }
       
       const response = await axios.post('/bands/add', formdata, config)
-      console.log("🚀 ~ response", response) */
+      console.log("🚀 ~ response", response)
       
-      console.log('Contact Person is ', band.contactPerson); 
 
-/*       if (response.data.success) {
+      if (response.data.success) {
         navigate('/bands')
       } else {
           if(response.data.error === 1){
               alert('name is mandatory')
           }
-      } */
+      }
 
-//console.log('Band is ', band); 
+console.log('Band is ', band); 
 
 
   } 
   return (      
-<Container component="main" maxWidth="xs">
-  <Box
-    sx={{
-      marginTop: { xs: 2, sm: 4 , md: 8 },
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    }}
-  >
+<Container component="main" maxWidth="sm">
+  <Box sx={boxStyle}>
     <Typography component="h1" variant="h5">
       Add a band to your database
     </Typography>
@@ -142,8 +133,8 @@ export default function BandAdd() {
             id="firstName"
             label="First name"
             name="firstName"
-            value={band.contactPerson.firstName}
-            onChange={e => setBand({...band, contactPerson: {firstName: e.target.value}})}
+            value={band.contactFirstName}
+            onChange={e => setBand({...band, contactFirstName: e.target.value})}
         />
         <TextField
             margin="normal"
@@ -151,8 +142,8 @@ export default function BandAdd() {
             id="lastName"
             label="Last name"
             name="lastName"
-            value={band.contactPerson.lastName}
-            onChange={e => setBand({...band, contactPerson: {lastName: e.target.value}})}
+            value={band.contactLastName}
+            onChange={e => setBand({...band, contactLastName: e.target.value})}
         />
         <Button
             type="submit"

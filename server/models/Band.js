@@ -20,46 +20,38 @@ const bandSchema = new Schema({
         type: String
     },
 
-    contactPerson: {
-        firstName: {
-            type: String
-        },
-    
-        lastName: {
-            type: String
-        }
+    contactFirstName: {
+        type: String
     },
 
-    address: {
-        street: {
-            type: String
-        },
-
-        houseNumber: {
-            type: String
-        },
-
-        zip: {
-            type: String
-        },
-
-        city: {
-            type: String
-        },
-
-        country: {
-            type: String
-        }
+    contactLastName: {
+        type: String
+    },
+    contactStreet: {
+        type: String
     },
 
-    contact: {
-        email: {
-            type: String
-        },
-    
-        phone: {
-            type: String
-        }
+    contactHouseNumber: {
+        type: String
+    },
+
+    contactZip: {
+        type: String
+    },
+
+    contactCity: {
+        type: String
+    },
+
+    contactCountry: {
+        type: String
+    },
+    contactEmail: {
+        type: String
+    },
+
+    contactPhone: {
+        type: String
     },
 
     genre: [String],
@@ -72,55 +64,28 @@ const bandSchema = new Schema({
         type: String
     },
 
-    links: {
-
-        website: {
-            type: String
-        },
-
-        facebook: {
-            type: String
-        },
-
-        instagram: {
-            type: String
-        },
-
-        youtube: {
-            type: String
-        },
-
-        twitter: {
-            type: String
-        }
+    linkWebsite: {
+        type: String
     },
 
-    festivalSpecifications: [{
-        festival: {
-            type: Schema.Types.ObjectId,
-            ref: 'Festival' 
-        },
-        day: {
-            type: String
-        },
-        time: {
-            type: String
-        },
-        stage: {
-            type: String
-        },
-        fee: {
-            type: String
-        },
-        equipmentDemands: {
-            type: String
-        },
-        otherDemands: {
-            type: String
-        },
-        cancelled: {
-            type: Boolean
-        }
+    linkFacebook: {
+        type: String
+    },
+
+    linkInstagram: {
+        type: String
+    },
+
+    linkYoutube: {
+        type: String
+    },
+
+    linkTwitter: {
+        type: String
+    },
+    festival: [{
+        type: Schema.Types.ObjectId,
+        ref: 'BandFestival' 
     }]
 
 }) 

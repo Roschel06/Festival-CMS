@@ -1,8 +1,9 @@
-import {Container, Grid, Card, CardContent, CardHeader, CardActionArea, Button, Typography, Divider } from '@mui/material';
+import {Container, Box,Grid, Card, CardContent, CardHeader, CardActionArea, Button, Typography, Divider } from '@mui/material';
 
 import {useParams} from 'react-router-dom'
 import axios from 'axios'
 import {useState, useContext, useEffect} from 'react'
+import {boxStyle} from './utilities/Box'
 
 export default function BandDetails(props) {
 
@@ -21,15 +22,24 @@ export default function BandDetails(props) {
     
     console.log("🚀 ~ band", band)
   return (
-    <Container sx={{ py: 8 }} maxWidth="md">
-      <img
-        src={band.logo}
-        alt={`${band.name} logo`}
-        loading="lazy"
-      />
-      <Typography variant="h1">
-        {band.name}, {band.name}
-      </Typography>
-    </Container>
+
+<Container component="main" maxWidth="xl">
+  <Box sx={boxStyle}>  
+    <div className="detailsHeader">
+        <img
+          className='bandLogo'
+          src={band.logo}
+          alt={`${band.name} logo`}
+          loading="lazy"
+        />
+        <Typography variant="h1">
+          {band.name}
+        </Typography>
+    </div>
+    <Typography variant="body2">
+          {band.contactLastName} {band.contactFirstName}
+        </Typography>
+    </Box>
+</Container>
   )
 }

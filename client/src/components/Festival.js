@@ -12,6 +12,7 @@ import {useState, useContext, useEffect} from 'react'
 import axios from 'axios'
 import { AppContext } from './Context'
 import {useNavigate, Link} from 'react-router-dom'
+import {boxStyle} from './utilities/Box'
 
 export default function Festival() {
 
@@ -53,14 +54,7 @@ export default function Festival() {
 
   return (
 <Container component="main" maxWidth="xs">
-  <Box
-    sx={{
-      marginTop: { xs: 2, sm: 4 , md: 8 },
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    }}
-  >
+  <Box sx={boxStyle}>  
     {state.user.festivals.length !== 0 ?
       <>
         <Typography component="h1" variant="h5">

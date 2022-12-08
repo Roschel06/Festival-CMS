@@ -20,6 +20,25 @@ a {
   text-decoration: none !important;
 }
 
+main > .MuiBox-root {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  overflow: hidden;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 1rem;
+}
+
 /*----------------------------------------------------------*/
 /*---- Image Upload ---------------------------------------*/
 /*--------------------------------------------------------*/
@@ -58,7 +77,7 @@ header a {
 header a:hover{
   color: #889fce;
 }
-.logo {
+.appLogo {
   text-decoration: none;
   color: #fff;
   display: flex;
@@ -67,16 +86,16 @@ header a:hover{
   letter-spacing: .3rem;
   color: inherit;
 }
-.logo svg {
+.appLogo svg {
   margin-top: -3px;
 }
-.logo + div {
+.appLogo + div {
   flex-grow: unset;
 }
-.logo--xs {
+.appLogo--xs {
   margin: 0 auto;
 }
-.logo--xs + div + div {
+.appLogo--xs + div + div {
   margin: 0;
 }
 
@@ -88,6 +107,18 @@ header a:hover{
   display: block;
 }
 
+/*----------------------------------------------------------*/
+/*---- Band Details ---------------------------------------*/
+/*--------------------------------------------------------*/
+
+.bandLogo {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+
 
 /*----------------------------------------------------------*/
 /*---- Media Queries --------------------------------------*/
@@ -97,24 +128,24 @@ header a:hover{
     header .MuiContainer-root {
       padding-left: 0;
   }
-    .logo--xs a {
+    .appLogo--xs a {
       font-size: 1rem;
   }
 }
 @media screen and (max-width: 899px) {
-  .logo {
+  .appLogo {
     display: none;
   }
-  .logo--xs {
+  .appLogo--xs {
     display: flex;
   }
 }
 
 @media screen and (min-width: 900px) {
-    .logo--xs {
+    .appLogo--xs {
       display: none;
   }
-  .logo {
+  .appLogo {
     margin-right: 2rem;
   }
     .MuiToolbar-root div:last-child {

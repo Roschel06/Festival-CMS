@@ -74,7 +74,7 @@ console.log('Header data is', data); */
     <AppBar position="static" color="secondary">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link to={'/dashboard'} className='logo'>
+          <Link to={'/dashboard'} className='appLogo'>
             <MusicVideoTwoToneIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             Festival CMS
           </Link>
@@ -117,7 +117,7 @@ console.log('Header data is', data); */
               ))}
             </Menu>
           </Box>
-          <Link to={'/dashboard'} className='logo logo--xs'>
+          <Link to={'/dashboard'} className='appLogo appLogo--xs'>
             <MusicVideoTwoToneIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
               Festival CMS
           </Link>

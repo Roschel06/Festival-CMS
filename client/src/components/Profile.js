@@ -21,6 +21,7 @@ import Select from '@mui/material/Select';
 import {useState, useContext} from 'react'
 import axios from 'axios'
 import { AppContext } from './Context'
+import {boxStyle} from './utilities/Box'
 
 export default function Profile() {
 
@@ -66,15 +67,7 @@ console.log('profile data is', data);
 
   return (
 <Container component="main" maxWidth="xs">
-  <CssBaseline />
-    <Box
-        sx={{
-        marginTop: { xs: 2, sm: 4 , md: 8 },
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        }}
-    >
+    <Box sx={boxStyle}> 
     <Typography component="h1" variant="h5">
       Change your user data
     </Typography>
