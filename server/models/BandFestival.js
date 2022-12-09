@@ -8,7 +8,7 @@ const bandInFestivalSchema = new Schema({
     },
     festival: {
         type: Schema.Types.ObjectId,
-        ref: 'Festival' 
+        ref: 'Festival'
     },
     day: {
         type: String

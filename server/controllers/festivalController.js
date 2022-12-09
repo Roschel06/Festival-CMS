@@ -57,26 +57,26 @@ module.exports.select = async (req, res) => {
         console.log("🚀 ~ select festival: req.body", req.body)
         
         const {currentFestival, _id} = req.body
-        console.log("🚀 ~ _id", _id)
-        console.log("🚀 ~ currentFestival", currentFestival)
+        console.log("🚀 ~ _id: ", _id)
+        console.log("🚀 ~ currentFestival: ", currentFestival)
 
         if (!currentFestival || !_id ) {
-            res.send({success: false, error: 1})
+            res.status(500).send({success: false, error: 1})
             return
         }
 
-        const setCurrentFestival = await Festival.findOne(currentFestival)
-        console.log("🚀 ~ currentFestival", setCurrentFestival)
+        const setCurrentFestival = await Festival.findById(currentFestival);
+        console.log("🚀 ~ currentFestival", setCurrentFestival);
 
         
         if (!setCurrentFestival) {
-            res.send({success: false, error: 2})
-            return
+            res.status(404).send({ success: false, error: 2 });
+            return;
         }
 
         const updateCurrentFestival = await User.findByIdAndUpdate(
             _id, 
-            {$push: { currentFestival:  newFestival.name}}, 
+            {$push: { currentFestival:  setCurrentFestival._id}}, 
             {new: true})
 
 
@@ -99,12 +99,13 @@ module.exports.select = async (req, res) => {
             console.log("🚀 ~ user", updateUser) */
 
 
-        res.send({success: true})
+        res.status(200).json(updateCurrentFestival)
+        //res.status(200).send({ success: true, updateCurrentFestival })
     } catch (error) {
     
         console.log("🚀 ~ Error in select festival", error.message)
 
-        res.send({success: false, error: error.message})
+        res.status(500).send({success: false, error: error.message})
         
     }
 }
