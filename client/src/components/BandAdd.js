@@ -25,7 +25,6 @@ export default function BandAdd() {
   const {state, dispatch} = useContext(AppContext)
   const [file, setFile] = useState(null) 
 
-
   const [band, setBand] = useState({
     owner: state.user._id,
     name: '',
@@ -34,6 +33,7 @@ export default function BandAdd() {
     contactFirstName: '',
     contactLastName: '',
     countryOfOrigin: '',
+    genre: [],
   })
  
   const navigate = useNavigate()
@@ -144,6 +144,15 @@ console.log('Band is ', band);
             name="lastName"
             value={band.contactLastName}
             onChange={e => setBand({...band, contactLastName: e.target.value})}
+        />
+        <TextField
+            margin="normal"
+            fullWidth
+            id="genre"
+            label="Genre"
+            name="genre"
+            value={band.genre}
+            onChange={e => setBand({...band, genre: e.target.value})}
         />
         <Button
             type="submit"

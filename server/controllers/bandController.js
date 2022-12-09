@@ -1,4 +1,5 @@
 const Band = require('../models/Band')
+const Festival = require('../models/Festival')
 const User = require('../models/User')
 
 module.exports.add = async (req, res) => {
@@ -36,6 +37,45 @@ module.exports.add = async (req, res) => {
         
     }
 }
+module.exports.addToFestival = async (req, res) => {
+
+    try {
+
+        const {name, _id} = req.body
+        console.log("🚀 ~ req.body", req.body)
+
+        if (!_id) {
+            res.send({success: false, error: 1})
+            return
+        }
+
+        const addToFestival = await Festival.findByIdAndUpdate(
+            _id,             
+            {$push: { bands:  newBandinfestival._id}}, 
+            {new: true})
+        .select('-__v')
+
+        console.log("🚀 ~ addToFestival", addToFestival)
+
+
+        
+        if (!addToFestival) {
+            res.send({success: false, error: 2})
+            return
+        }    
+            
+        console.log("🚀 ~ addToFestival is ", addToFestival)
+        
+            
+        res.send({success: true, newBand})
+
+    } catch (error) {
+    
+        console.log("🚀 ~ Error in band add to festival", error.message)
+        res.send({success: false, error: error.message})
+        
+    }
+}
 module.exports.list = async (req, res) => {
     try {
 
@@ -44,7 +84,7 @@ module.exports.list = async (req, res) => {
 
     } catch (error) {
         
-        console.log("🚀 ~ Error in list festival", error.message)
+        console.log("🚀 ~ Error in list band", error.message)
         res.send({success: false, error: error.message})
         
     }
@@ -66,6 +106,20 @@ module.exports.band = async (req, res) => {
     } catch (error) {
         
         console.log("🚀 ~ Error in list festival", error.message)
+        res.send({success: false, error: error.message})
+        
+    }
+}
+module.exports.edit = async (req, res) => {
+    try {
+
+        console.log('Logging hello from band edit');
+        
+        res.send('hello from res.send band edit')
+
+    } catch (error) {
+        
+        console.log("🚀 ~ Error in edit band", error.message)
         res.send({success: false, error: error.message})
         
     }

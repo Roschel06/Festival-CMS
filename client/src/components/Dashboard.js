@@ -13,7 +13,6 @@ export default function Dashboard() {
   const navigate = useNavigate()
   const {state, dispatch} = useContext(AppContext)
   const [bandList, setBandList] = useState({...state.user})
-  console.log("🚀 ~ bandList", bandList)
   
   useEffect(() => {
       getData()
