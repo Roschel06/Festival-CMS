@@ -34,7 +34,7 @@ export default function BandDetails(props) {
     const handleAddToFestival = async (event) => {
       event.preventDefault();
 
-      const response = await axios.post('/festival/addToFestival',{
+      const response = await axios.post('/bands/addToFestival',{
         festival,
         band: band._id
       })

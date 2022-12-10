@@ -65,18 +65,18 @@ module.exports.select = async (req, res) => {
             return
         }
 
-        const setCurrentFestival = await Festival.findById(currentFestival);
-        console.log("🚀 ~ currentFestival", setCurrentFestival);
+        // const setCurrentFestival = await Festival.findById(currentFestival);
+        // console.log("🚀 ~ currentFestival", setCurrentFestival);
 
         
-        if (!setCurrentFestival) {
-            res.status(404).send({ success: false, error: 2 });
-            return;
-        }
+        // if (!setCurrentFestival) {
+        //     res.status(404).send({ success: false, error: 2 });
+        //     return;
+        // }
 
         const updateCurrentFestival = await User.findByIdAndUpdate(
             _id, 
-            {$push: { currentFestival:  setCurrentFestival._id}}, 
+            { currentFestival}, 
             {new: true})
 
 
@@ -99,8 +99,8 @@ module.exports.select = async (req, res) => {
             console.log("🚀 ~ user", updateUser) */
 
 
-        res.status(200).json(updateCurrentFestival)
-        //res.status(200).send({ success: true, updateCurrentFestival })
+        //res.status(200).json(updateCurrentFestival)
+        res.send({ success: true })
     } catch (error) {
     
         console.log("🚀 ~ Error in select festival", error.message)

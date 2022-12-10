@@ -35,7 +35,7 @@ export default function Login() {
       event.preventDefault();
 
       const response = await axios.post('/user/login', data)
-      console.log("🚀 ~ response", response)
+      //console.log("🚀 ~ response", response)
 
       if (response.data.success) {
             dispatch({

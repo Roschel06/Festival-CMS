@@ -67,7 +67,7 @@ module.exports.addToFestival = async (req, res) => {
         console.log("🚀 ~ addToFestival is ", addToFestival)
         
             
-        res.send({success: true, newBand})
+        res.send({success: true, newBandinfestival})
 
     } catch (error) {
     
@@ -79,7 +79,7 @@ module.exports.addToFestival = async (req, res) => {
 module.exports.list = async (req, res) => {
     try {
 
-        const bands = await Band.find()
+        const bands = await Band.find().sort('-_id')
         res.send({success: true, bands})
 
     } catch (error) {

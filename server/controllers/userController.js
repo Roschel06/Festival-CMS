@@ -127,9 +127,10 @@ module.exports.profile = async (req, res) => {
         if(req.file?.filename) req.body.image = req.file?.filename
 
         const user = await User.findByIdAndUpdate(_id, {
-            image: req.file?.filename, 
-            firstName: req.body?.firstName,
-            lastName: req.body?.lastName
+            image: req.body.image, 
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            role: req.body.role
         }, {new: true})
         .select('-__v -password')
         console.log("🚀 ~ user", user)

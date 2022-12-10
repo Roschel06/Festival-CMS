@@ -22,19 +22,6 @@ export default function Festival() {
   const [currentFestival, setCurrentFestival] = useState(null);
   const navigate = useNavigate();
   const [name, setName] = useState("");
-  /*     const [festivalList, setFestivalList] = useState()
-    
-   useEffect(() => {
-    getData()
-  }, [])
- 
-
-    const getData = async () => {
-
-      const {data} = await axios.get('/festival/list')
-      setFestivalList(data)
-      console.log("🚀 ~ response of the festival list: ", data)
-    }  */
 
   const handleSave = async (event) => {
     event.preventDefault();
@@ -52,23 +39,12 @@ export default function Festival() {
   const handleSelect = async (event) => {
     event.preventDefault();
 
-    const formdata = new FormData();
-    console.log(`Logged in user ${data._id}`);
-    formdata.set("_id", data._id);
-    formdata.set("currentFestival", data.currentFestival);
-    console.log("🚀 ~ data.currentFestival", data.currentFestival);
-
     const editUser = {
       _id: data._id,
       currentFestival: data.currentFestival
     }
 
-    const config = {
-      Headers: { "content-type": "multipart/form-data" },
-    };
-
-
-    const response = await axios.patch("/festival/select", editUser, config);
+    const response = await axios.patch("/festival/select", editUser);
     console.log("🚀 ~ Patch response", response);
 
 /*     axios

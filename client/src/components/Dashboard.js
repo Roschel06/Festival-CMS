@@ -24,7 +24,7 @@ export default function Dashboard() {
   } 
 
   const filteredBands = bandList.bands.filter(item => item.owner === state.user._id)
-  console.log("🚀 ~ filteredBands", filteredBands)
+  //console.log("🚀 ~ filteredBands", filteredBands)
 
   return (
     <Container sx={{ py: 8 }} maxWidth="xl">
