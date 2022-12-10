@@ -65,38 +65,13 @@ module.exports.select = async (req, res) => {
             return
         }
 
-        // const setCurrentFestival = await Festival.findById(currentFestival);
-        // console.log("🚀 ~ currentFestival", setCurrentFestival);
-
-        
-        // if (!setCurrentFestival) {
-        //     res.status(404).send({ success: false, error: 2 });
-        //     return;
-        // }
-
         const updateCurrentFestival = await User.findByIdAndUpdate(
             _id, 
-            { currentFestival}, 
+            {currentFestival}, 
             {new: true})
-
-
-            /*             .populate({ 
-                path: 'data',
-                populate: {
-                    path: 'festivals',
-                    ref: 'Festival'
-                } 
-            }) */
-            //.populate({path: 'festivals', select: 'name'})
+            //.populate({path: 'currentFestival', select: 'name'})
             
-            console.log("🚀 ~ updateCurrentFestival", updateCurrentFestival)
-
-/*             const updateUser = await User.findByIdAndUpdate(_id, {
-                firstName: req.body?.firstName,
-                lastName: req.body?.lastName
-            }, {new: true})
-            .select('-__v -password')
-            console.log("🚀 ~ user", updateUser) */
+        //console.log("🚀 ~ updateCurrentFestival", updateCurrentFestival)
 
 
         //res.status(200).json(updateCurrentFestival)

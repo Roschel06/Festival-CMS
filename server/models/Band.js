@@ -83,7 +83,7 @@ const bandSchema = new Schema({
     linkTwitter: {
         type: String
     },
-    festival: [{
+    festivals: [{
         type: Schema.Types.ObjectId,
         ref: 'BandFestival' 
     }]

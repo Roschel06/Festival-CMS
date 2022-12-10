@@ -21,7 +21,7 @@ import Festival from './components/Festival'
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-
+import { SnackbarProvider} from 'notistack';
 
 function App() {
 
@@ -75,6 +75,7 @@ function App() {
     <ThemeProvider theme={theme}>
     <CssBaseline />
     <ContextProvider>
+    <SnackbarProvider maxSnack={3}>
         <BrowserRouter>
             <Routes>
                 <Route element={<LoginLayout />}>
@@ -104,6 +105,7 @@ function App() {
                 </Route>
             </Routes>
         </BrowserRouter>
+    </SnackbarProvider>
     </ContextProvider>
     </ThemeProvider>
   );

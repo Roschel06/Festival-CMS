@@ -18,7 +18,6 @@ module.exports.add = async (req, res) => {
         if(req.file?.filename) req.body.logo = req.file?.path
 
         const newBand = await Band.create(req.body)
-        //.then(item => item.populate({path: 'owner', select: '_id'}))
         
         if (!newBand) {
             res.send({success: false, error: 2})
@@ -37,43 +36,107 @@ module.exports.add = async (req, res) => {
         
     }
 }
-module.exports.addToFestival = async (req, res) => {
+/* module.exports.addToFestivalOLD = async (req, res) => {
 
     try {
 
-        const {name, _id} = req.body
+        const {festival, band} = req.body
         console.log("🚀 ~ req.body", req.body)
 
-        if (!_id) {
+        if (!festival || !band) {
             res.send({success: false, error: 1})
             return
         }
 
-        const addToFestival = await Festival.findByIdAndUpdate(
-            _id,             
-            {$push: { bands:  newBandinfestival._id}}, 
+        const addBandToFestival = await Festival.findByIdAndUpdate(
+            {
+                _id: festival,
+                bands: {$elemMatch: {$ne: band}}
+            },             
+            {$push: { bands:  band}}, 
+            {new: true})
+        .select('-__v')
+        console.log("🚀 ~ addBandToFestival", addBandToFestival)
+
+        if (!addBandToFestival) return res.send({success: false, errorId:4})
+
+        const addFestivalToBand = await Band.findByIdAndUpdate(
+            band,             
+            {$push: { festivals:  festival}}, 
             {new: true})
         .select('-__v')
 
-        console.log("🚀 ~ addToFestival", addToFestival)
 
-
-        
-        if (!addToFestival) {
+        console.log("🚀 ~ addFestivalToBand", addFestivalToBand)
+        if (!addFestivalToBand) {
             res.send({success: false, error: 2})
             return
-        }    
+        }           
             
-        console.log("🚀 ~ addToFestival is ", addToFestival)
-        
-            
-        res.send({success: true, newBandinfestival})
+        res.send({success: true})
 
     } catch (error) {
     
         console.log("🚀 ~ Error in band add to festival", error.message)
         res.send({success: false, error: error.message})
         
+    }
+} */
+module.exports.addToFestival = async (req, res) => {
+
+    try {
+        const {festival, band} = req.body
+
+        console.log("🚀 ~ req.body ", req.body)
+
+        const bandInFestival = await Festival.findOne({
+            _id: festival, 
+            bands: {$elemMatch: {$eq: band}}
+        })
+
+        console.log("🚀 ~ bandInFestival ", bandInFestival)
+
+        let newBandForFestival;
+
+        if (!bandInFestival) { 
+            newBandForFestival = await Festival.findByIdAndUpdate({ _id: festival},
+            {
+                $push : {bands: band}
+            },
+            {new: true}
+            )
+                
+            console.log("🚀 ~ newBandForFestival", newBandForFestival)
+        }            
+
+        const festivalInBand = await Band.findOne({
+            _id: band, 
+            festivals: {$elemMatch: {$eq: festival}}
+        })
+
+        console.log("🚀 ~ festivalInBand ", festivalInBand)
+
+        let newFestivalInBand;
+
+        if (!festivalInBand) { 
+            newFestivalInBand = await Band.findByIdAndUpdate({ _id: band},
+            {
+                $push : {festivals: festival}
+            },
+            {new: true}
+            )
+            
+            console.log("🚀 ~ newFestivalInBand", newFestivalInBand)
+        }
+
+
+
+        res.send({success: true, bandInFestival: newBandForFestival})
+        
+    } catch (error) {
+        console.log("🚀 ~ Error in like  ", error.message)
+
+        res.send({success: false, error: error.message})
     }
 }
 module.exports.list = async (req, res) => {
@@ -123,4 +186,31 @@ module.exports.edit = async (req, res) => {
         res.send({success: false, error: error.message})
         
     }
+}
+module.exports.delete = async (req, res) => {
+
+    try {
+
+        console.log("🚀 ~ delete params", req.params)
+
+
+        const bandInFestivals = await Festival.find({bands: req.params.id})
+        console.log("🚀 ~ bandInFestivals", bandInFestivals)
+
+        
+
+/*         const band = await Band.findByIdAndDelete(req.params.id)
+        console.log("🚀 ~ band", band)
+
+        if(!band) {
+            res.send({success: false, error: 'Band not found'})
+            return
+        } */
+       
+
+    } catch (error) {
+        console.log('Error in delete band', error.message);
+        res.send({success: false, error: error.message})
+    }
+
 }
