@@ -11,24 +11,29 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { useContext } from 'react'
+import MusicVideoTwoToneIcon from '@mui/icons-material/MusicVideoTwoTone';
+
+import { useContext, useState } from 'react'
 import { AppContext } from './Context'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios';
 
-
 const pages = [
+  {name: 'Festival', path: 'festival'},
   {name: 'Stages', path: 'stages'},
   {name: 'Bands', path: 'bands'},
   {name: 'Facilities', path: 'facilities'},
   {name: 'Food services', path: 'food-services'},
   {name: 'Shopping', path: 'shopping'}]
-const settings = ['Profile', 'Account', 'Dashboard'];
+const settings = ['Profile'];
 
 function ResponsiveAppBar() {
 
+  
+  //const {festivalName} = useParams();
+
     const {state, dispatch} = useContext(AppContext)
+    const [data, setData] = useState({...state.user})
     const navigate = useNavigate()
 
 
@@ -63,28 +68,16 @@ function ResponsiveAppBar() {
         }
 }
 
+/* console.log('Header state is', state);
+console.log('Header data is', data); */
   return (
-    <AppBar position="static">
+    <AppBar position="static" color="secondary">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/dashboard"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
+          <Link to={'/dashboard'} className='appLogo'>
+            <MusicVideoTwoToneIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             Festival CMS
-          </Typography>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -124,25 +117,10 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
+          <Link to={'/dashboard'} className='appLogo appLogo--xs'>
+            <MusicVideoTwoToneIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+              Festival CMS
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -150,7 +128,7 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link style={{textDecoration: "none", color: "white"}} to={`/${page.path}`}>{page.name}</Link>
+                <Link to={`/${page.path}`}>{page.name}</Link>
               </Button>
             ))}
           </Box>
@@ -158,7 +136,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={state.user.firstName} src={'/images/' + data.image}  sx={{ color: "#ffffff", bgcolor: ' rgb(255 255 255 / 25%)' }}/>
               </IconButton>
             </Tooltip>
             <Menu

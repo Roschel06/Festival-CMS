@@ -1,25 +1,24 @@
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+//import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import {Container, Box, Button, Typography, TextField, IconButton, InputLabel, MenuItem, FormControl,Select } from '@mui/material';
-
 
 import {useState, useContext} from 'react'
 import axios from 'axios'
 import { AppContext } from './Context'
 import {boxStyle} from './utilities/Box'
 
-export default function Profile() {
+export default function FestivalEdit() {
 
     const {state, dispatch} = useContext(AppContext)
 
     const [data, setData] = useState({...state.user})
-    const [imgUrl, setImgUrl] = useState(state.user.image ? '/images/' + state.user.image : null)
-    const [file, setFile] = useState(null) 
+/*     const [imgUrl, setImgUrl] = useState(state.user.image ? '/images/' + state.user.image : null)
+    const [file, setFile] = useState(null)  */
 
-    const handleImageChange = (e) => {
+/*     const handleImageChange = (e) => {
         const url = URL.createObjectURL(e.currentTarget.files[0])
         setImgUrl(url)
         setFile(e.currentTarget.files[0])
-    }
+    } */
 
     const handleSave = async (event) => {
         event.preventDefault();
@@ -28,7 +27,7 @@ export default function Profile() {
 
         Object.entries(data).forEach(item => formdata.set(item[0], item[1]))
         
-        if(file) formdata.set('image', file, 'profile-image')
+        // if(file) formdata.set('image', file, 'profile-image')
 
         const config = {
             Headers: {'content-type': 'multipart/form-data'}
@@ -57,7 +56,7 @@ console.log('profile data is', data);
     </Typography>
     <Box component="form" onSubmit={handleSave} noValidate sx={{ mt: 1 }}>
 
-        <div className={"imgUpload"}>
+{/*         <div className={"imgUpload"}>
             
             <IconButton color="primary" aria-label="upload picture" component="label">
                 <img src={imgUrl} alt=''/>
@@ -67,7 +66,7 @@ console.log('profile data is', data);
                 <Typography textAlign="center">Upload image</Typography>
                 </div>
             </IconButton>
-        </div>
+        </div> */}
 
         <TextField
             margin="normal"

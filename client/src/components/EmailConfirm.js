@@ -1,15 +1,12 @@
-import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 export default function EmailConfirm(props) {
-    const theme = createTheme();
 
     const {token} = useParams()
     const navigate = useNavigate()
@@ -29,10 +26,7 @@ export default function EmailConfirm(props) {
     }, [])
 
   return (
-    
-    <ThemeProvider theme={theme}>
-    <Container component="main" maxWidth="xs">
-    <CssBaseline />
+    <Container component="main" maxWidth="md">
     <Box
         sx={{
         marginTop: 8,
@@ -47,8 +41,6 @@ export default function EmailConfirm(props) {
             Please wait while verifying your email.
         </Typography>
         </Box>
-    </Container>
-    </ThemeProvider>
-    
+    </Container>    
   )
 }
