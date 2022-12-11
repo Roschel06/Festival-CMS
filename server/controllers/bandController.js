@@ -194,18 +194,27 @@ module.exports.delete = async (req, res) => {
         console.log("🚀 ~ delete params", req.params)
 
 
+        const filter = {bands: req.params.id}
+
+        const updateDoc = {
+            $pull: {bands: req.params.id}
+        }
+
+        const result = await Festival.updateMany(filter, updateDoc)
+        console.log("🚀 ~ result", result)
+
+
         const bandInFestivals = await Festival.find({bands: req.params.id})
-        console.log("🚀 ~ bandInFestivals", bandInFestivals)
+        console.log("🚀 ~ bandInFestivals", bandInFestivals) 
 
-        
-
-/*         const band = await Band.findByIdAndDelete(req.params.id)
+        const band = await Band.findByIdAndDelete(req.params.id)
         console.log("🚀 ~ band", band)
+
 
         if(!band) {
             res.send({success: false, error: 'Band not found'})
             return
-        } */
+        }
        
 
     } catch (error) {
