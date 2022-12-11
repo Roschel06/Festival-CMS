@@ -18,6 +18,7 @@ import EmailConfirm from './components/EmailConfirm'
 import ForgotPassword from './components/ForgotPassword'
 import ChangePassword from './components/ChangePassword'
 import Festival from './components/Festival'
+import FestivalEdit from './components/FestivalEdit'
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -92,7 +93,8 @@ function App() {
                     <Route element={<UserLayout />}>
                         {/* <Route path='/dashboard/:festivalName' element={<Dashboard />} /> */}
                         <Route path='/dashboard' element={<Dashboard />} />
-                        <Route path='/festival' element={<Festival />} />
+                        <Route path='/festivals' element={<Festival />} />
+                        <Route path='/festivals/:id/edit' element={<FestivalEdit />} />
                         <Route path='/stages' element={<Stages />} />
                         <Route path='/bands' element={<BandList />} />
                         <Route path='/bands/:id' element={<BandDetails />} />

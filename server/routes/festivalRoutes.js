@@ -5,5 +5,7 @@ const festivalController = require('../controllers/festivalController');
 router.post('/add', festivalController.add)
 router.patch('/select', festivalController.select)
 router.get('/list', festivalController.list)
+router.get('/:id', festivalController.singlefestival)
+router.patch('/edit', festivalController.edit)
 
 module.exports = router;

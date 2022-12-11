@@ -97,27 +97,59 @@ module.exports.list = async (req, res) => {
         
     }
 }
-/* module.exports.list = async (req, res) => {
+module.exports.singlefestival = async (req, res) => {
     try {
 
-        const {email} = req.body
-
-        const user = await User.find({email})
-        console.log("🚀 ~ user", user)
-
-        const festivals = await Festival.find({_id: user._id})
-        console.log("🚀 ~ festivals", festivals) 
-
+        const festival = await Festival.findOne({_id: req.params.id})
         
-        res.send({success: true, user})
+        console.log("🚀 ~ festival in details is", festival)
+        
+        res.send({success: true, festival})
+
     } catch (error) {
         
         console.log("🚀 ~ Error in list festival", error.message)
-        
         res.send({success: false, error: error.message})
         
     }
-} */
-/*         const festivals = await Festival.find()
-        console.log("🚀 ~ festivals", festivals)
- */
+}
+module.exports.edit = async (req, res) => {
+
+    try {
+
+        console.log("🚀 ~ profile: req.body", req.body)
+        //console.log("🚀 ~ profile: req.file", req.file)
+
+        const {_id} = req.body
+        console.log("🚀 ~ _id", _id)
+
+/*         if(!email || !_id){
+            res.send({success: false, errorId: 1})
+            return
+        }
+
+        if(req.file?.filename) req.body.image = req.file?.filename
+
+        const user = await User.findByIdAndUpdate(_id, {
+            image: req.body.image, 
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            role: req.body.role
+        }, {new: true})
+        .select('-__v -password')
+        console.log("🚀 ~ user", user)
+        
+        if(!user){
+            res.send({success: false, errorId: 2})
+            return
+        }
+
+        res.send({success: true, user}) */
+    } catch (error) {
+    
+        console.log("🚀 ~ Error in Profile users", error.message)
+
+        res.send({success: false, error: error.message})
+        
+    }
+}

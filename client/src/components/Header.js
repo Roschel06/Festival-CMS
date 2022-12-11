@@ -19,7 +19,7 @@ import {Link, useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios';
 
 const pages = [
-  {name: 'Festival', path: 'festival'},
+  {name: 'Festivals', path: 'festivals'},
   {name: 'Stages', path: 'stages'},
   {name: 'Bands', path: 'bands'},
   {name: 'Facilities', path: 'facilities'},

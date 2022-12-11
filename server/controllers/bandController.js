@@ -153,7 +153,7 @@ module.exports.list = async (req, res) => {
     }
 }
 
-module.exports.band = async (req, res) => {
+module.exports.singleband = async (req, res) => {
     try {
 
         const band = await Band.findOne({_id: req.params.id})

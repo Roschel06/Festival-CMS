@@ -32,7 +32,7 @@ export default function BandDetails(props) {
     }, [])
     
     const getData = async () => {
-      const {data} = await axios.get(`/bands/band/${id}`)
+      const {data} = await axios.get(`/bands/${id}`)
       setBand({...data.band})
     } 
     
@@ -56,16 +56,12 @@ export default function BandDetails(props) {
     const handleDelete = async (id) => {
       console.log("🚀 ~ id", id)
       
-      const response = await axios.delete(`/bands/band/${id}/delete`)
+      const response = await axios.delete(`/bands/${id}/delete`)
       console.log("🚀 ~ response", response)
   
       if (response.data.success) {
         console.log('No more band here');
         navigate("/dashboard");
-/*         const cleanedUsers = users.filter(item => item._id !== id)
-        // console.log("🚀 ~ cleanedUsers", cleanedUsers)
-  
-        setUsers([...cleanedUsers]) */
       }
     }
 

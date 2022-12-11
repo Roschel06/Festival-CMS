@@ -14,9 +14,9 @@ import { Avatar } from '@mui/material';
 export default function BandList() {
 
     const {state, dispatch} = useContext(AppContext)
-    const [bandList, setBandList] = useState({...state.user})
-    const [newFilteredBands, setNewFilteredBands] = useState([])
-    console.log("🚀 ~ bandList", bandList)
+    const [user, setUser] = useState({...state.user})
+    console.log("🚀 ~ user", user)
+
     
     useEffect(() => {
         getData()
@@ -24,15 +24,14 @@ export default function BandList() {
   
     const getData = async () => {
       const {data} = await axios.get('/bands/list')
-      setBandList(data)
+      setUser(data)
     } 
 
 
-
-    const filteredBands = bandList.bands.filter(item => item.owner === state.user._id)
+ 
+    const filteredBands = user.bands.filter(item => item.owner === state.user._id)
     console.log("🚀 ~ filteredBands", filteredBands)
 
-    console.log("🚀 ~ filteredBands", filteredBands[5]?.name)
 
 
 let rows = []
@@ -84,16 +83,16 @@ for (let i = 0; i < filteredBands.length; i++) {
        {/*     {filteredBands.map((item, idx) => {
                return <Link key={idx} to={`/bands/${item._id}`}>{item.name}, {item.countryOfOrigin}</Link>
            })} */}
-               <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        loading={!filteredBands.length}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
-        checkboxSelection
-      />
-    </div>
+            <div style={{ height: 400, width: '100%' }}>
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                loading={!filteredBands.length}
+                pageSize={10}
+                rowsPerPageOptions={[10]}
+                checkboxSelection
+              />
+            </div>
            </Box>
        </Container>
   )
