@@ -86,7 +86,7 @@ module.exports.select = async (req, res) => {
 module.exports.list = async (req, res) => {
     try {
 
-        const festivals = await Festival.find()
+        const festivals = await Festival.find().sort('-_id')
         res.send({success: true, festivals})
 
     } catch (error) {

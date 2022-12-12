@@ -85,6 +85,10 @@ const bandSchema = new Schema({
     },
     festivals: [{
         type: Schema.Types.ObjectId,
+        ref: 'Festival' 
+    }],
+    attendance: [{
+        type: Schema.Types.ObjectId,
         ref: 'Bandattendance' 
     }]
 

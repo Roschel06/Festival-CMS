@@ -70,14 +70,11 @@ export default function BandDetails(props) {
     }
 
 
-/* 
-   const bandInFestivals = band.festivals.filter(item => item === data.festivals[0]._id)
+/*    const bandInFestivals = data.festivals.filter((item,) => !band.festivals.includes(item._id) )
+   console.log("🚀 ~ bandInFestivals", bandInFestivals)
 
-    console.log("🚀 ~ bandInFestivals", bandInFestivals)
-
-    console.log("🚀 ~ data.festivals", data.festivals[0]._id)
-
-    console.log("🚀 ~ band ID", band._id) */
+   console.log("🚀 ~ band.festivals", band.festivals)
+   console.log("🚀 ~ data.festivals", data.festivals) */
 
   return (
 

@@ -9,7 +9,7 @@ import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
 
 export default function Dashboard() {
-  const cards = [1, 2, 3, 4, 5, 6];
+
   const navigate = useNavigate()
   const {state, dispatch} = useContext(AppContext)
   const [user, setUser] = useState({...state.user})
@@ -22,13 +22,12 @@ export default function Dashboard() {
     const {data} = await axios.get('/bands/list')
     setUser(data)
   } 
-  console.log('currentFestival is ', state.user);
+
   const filteredBands = user.bands.filter(item => item.owner === state.user._id)
-const newFilteredBands = user.bands.filter(item => item.owner === state.user._id && item.festivals.includes(state.user.currentFestival))
+  const newFilteredBands = user.bands.filter(item => item.owner === state.user._id && item.festivals.includes(state.user.currentFestival))   
 
   const festivalName = state.user.festivals.filter(item => item._id === state.user.currentFestival)
-  console.log("🚀 ~ festivalName", festivalName)
-  // console.log("🚀 ~ user.festivals", state.user.festivals)
+
 return (
     <Container sx={{ py: 8 }} maxWidth="xl">
           {festivalName.map((item, idx) => <Typography variant="h3" color="secondary" sx={{ mb:4, textAlign: 'center' }} key={idx}>{item.name}</Typography>)}
@@ -54,7 +53,7 @@ return (
                     <Divider />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography variant="body2" color="text.secondary">
-                      Recently added / edited
+                      Recently added
                     </Typography>
                     <div className="card__list">
                       {newFilteredBands.map((item, idx) => {
@@ -85,7 +84,7 @@ return (
                     }}>
                     <MusicNoteTwoToneIcon  color="primary"/>
                     <Typography variant="h4"  color="primary">
-                      Bands
+                      Bands in DB
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{marginLeft: 'auto', fontWeight: 500}}>
                       {filteredBands.length}
@@ -94,7 +93,7 @@ return (
                     <Divider />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography variant="body2" color="text.secondary">
-                      Recently added / edited
+                      Recently added
                     </Typography>
                     <div className="card__list">
                       {filteredBands.map((item, idx) => {

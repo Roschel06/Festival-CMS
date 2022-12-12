@@ -36,7 +36,7 @@ export default function Festival() {
     logo: festivals[i].logo
   })
   }
-    const columns = useMemo (() =>  [
+/*     const columns = useMemo (() =>  [
       { field: 'id', headerName: 'ID', flex: 1 },
       { field: 'logo', headerName: 'Logo', flex: 1, renderCell:params=><Avatar src={params.row.logo} />},
       { field: 'band', headerName: 'Name', flex: 1},
@@ -49,7 +49,16 @@ export default function Festival() {
         type: 'actions', 
         renderCell: (params) => <FestivalActions {...{params, rowId, setRowId}} />
       },
-    ], [rowId])
+    ], [rowId]) */
+
+    const columns = [
+      { field: 'id', headerName: 'ID', flex: 1 },
+      { field: 'logo', headerName: 'Logo', flex: 1, renderCell:params=><Avatar src={params.row.logo} />},
+      { field: 'band', headerName: 'Name', flex: 1},
+      { field: 'link', headerName: 'Link', flex: 1, renderCell: (params) => {
+        return <Typography component={Link} to={`/festivals/${params.id}/edit`}>Details</Typography>;
+      } },
+    ]
 
 
   const handleSave = async (event) => {
@@ -194,7 +203,7 @@ export default function Festival() {
       {state.user.festivals.length !== 0 ? 
         <Box sx={boxStyle}>  
           <Typography component="h1" variant="h5">
-              Bands in Database
+              Festivals in Database
           </Typography>
           <div style={{ height: 400, width: '100%' }}>
             <DataGrid

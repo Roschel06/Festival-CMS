@@ -25,7 +25,7 @@ const bandAttendanceSchema = new Schema({
     equipmentDemands: {
         type: String
     },
-    otherDemands: {
+    furtherDemands: {
         type: String
     },
     cancelled: {

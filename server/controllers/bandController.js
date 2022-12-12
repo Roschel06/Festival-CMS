@@ -137,7 +137,7 @@ module.exports.addToFestival = async (req, res) => {
 
         const festivalInBand = await Band.findOne({
             _id: band, 
-            festivals: {$elemMatch: {$eq: festival}}
+            attendance: {$elemMatch: {$eq: festival}}
         })
 
         console.log("🚀 ~ festivalInBand ", festivalInBand)

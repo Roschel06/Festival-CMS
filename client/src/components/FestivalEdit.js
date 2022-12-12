@@ -18,21 +18,22 @@ export default function FestivalEdit() {
         _id: id,
         name: festival?.data?.name,
     })
-
-        
+    
+    
     useEffect(() => {
         getData()
     }, [])
     
     const getData = async () => {
-        const {data} = await axios.get(`/festivals/${id}`)
-        setFestival(data)
+        const response = await axios.get(`/festivals/${id}`)
+        setFestival(response.data.festival)
     } 
-    console.log("🚀 ~ festival name", festival)
+    console.log("🚀 ~ festival", festival)
+/*     console.log("🚀 ~ festival name", festival)
     console.log("🚀 ~ festival name", festival?.festival?.name)
     //console.log("🚀 ~ festival id", festival.festival._id)
     
-    console.log("🚀 ~ editFestival", editFestival)
+    console.log("🚀 ~ editFestival", editFestival) */
 
 /*     const [imgUrl, setImgUrl] = useState(state.user.image ? '/images/' + state.user.image : null)
     const [file, setFile] = useState(null)  */
@@ -68,7 +69,7 @@ export default function FestivalEdit() {
         const config = {
             Headers: {'content-type': 'multipart/form-data'}
         }
-        const response = await axios.patch(`/festivals/edit`, editFestival, config)
+        const response = await axios.patch(`/festivals/edit`, festival, config)
         console.log("🚀 ~ response", response)
 
 /*          if (response.data.success) {
@@ -113,8 +114,8 @@ export default function FestivalEdit() {
             name="name"
             autoComplete="name"
             //defaultValue={festival?.data?.name}
-            value={editFestival.name}
-            onChange={e => setEditFestival({...editFestival, name: e.target.value })}
+            value={festival.name}
+            onChange={e => setFestival({...festival, name: e.target.value })}
         />
         <Button
             type="submit"
