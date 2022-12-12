@@ -20,7 +20,7 @@ export default function ContextProvider({children}) {
                     user: {}
                 }
             default:
-                return
+                throw new Error(`No case for ${action.type} found in AppContext`)
         }
     }
 

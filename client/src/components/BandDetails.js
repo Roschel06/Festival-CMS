@@ -1,7 +1,10 @@
-import {Container, Box,Grid, Card, CardContent, CardHeader, CardActionArea, Button, Typography, TextField } from '@mui/material';
+import {Container, Box, Button, Typography, TextField } from '@mui/material';
 
 import { InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 import { useSnackbar } from 'notistack';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
+
 
 import {useParams, Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
@@ -13,11 +16,11 @@ import {BandAddToFestivalModal} from './BandAddToFestivalModal'
 export default function BandDetails(props) {
 
     const {id} = useParams()
+    const navigate = useNavigate();
     const {state, dispatch} = useContext(AppContext)
     const [data, setData] = useState({...state.user})
     const [band, setBand] = useState({})
     const [festival, setFestival] = useState('')
-    const navigate = useNavigate();
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -28,7 +31,6 @@ export default function BandDetails(props) {
     
     useEffect(() => {
       getData()
-      //getFestival()
     }, [])
     
     const getData = async () => {
@@ -46,9 +48,11 @@ export default function BandDetails(props) {
         band: band._id
       })
 
-      if (!response.data.success) {
-        /* handleClickVariant() */
-        console.log('sorry');
+      if (response.data.success) {
+        handleClickVariant()
+        
+      } else {
+        console.log('There was an error');
       }
     }
 
@@ -79,48 +83,64 @@ export default function BandDetails(props) {
 
 <Container component="main" maxWidth="xl">
   <Box sx={boxStyle}>  
-    <div className="detailsHeader">
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <img
           className='bandLogo'
           src={band.logo}
           alt={`${band.name} logo`}
           loading="lazy"
         />
-        <Typography variant="h1">
+        <Typography variant="h1" sx={{ ml: 3}}>
           {band.name}
         </Typography>
-    </div>
+    </Box>
     <Typography variant="body2">
       {band._id}
     </Typography>
-    <Typography variant="body2">
-      {band.contactFirstName} {band.contactLastName}
+    <Typography variant="body2" sx={{ mb: 2}}>
+     <strong>Contact person:</strong> {band.contactFirstName} {band.contactLastName}
     </Typography>
-    <Button
-      component={Link}
-      to={`/bands/${id}/edit`} 
-        fullWidth
-        variant="contained"
-        sx={{ mt: 3, mb: 2 }}
+    <Box sx={{ display: 'flex' }}>
+      <Button
+        color='error'
+          onClick={() => handleDelete(band._id)}
+          variant="outlined"
+          sx={{ mx: 1, minWidth: '140px' }}
+          startIcon={<DeleteForeverIcon />}
+        >
+          Delete
+      </Button>
+      <Button
+        component={Link}
+        to={`/bands/${id}/edit`} 
+        variant="outlined"
+        sx={{ mx: 1, minWidth: '140px'}}
+        startIcon={<EditIcon />}
       >
-        Edit band
-    </Button>
-    <Button
-    color='error'
-      onClick={() => handleDelete(band._id)}
-      fullWidth
-      variant="contained"
-      sx={{ mb: 2 }}
-    >
-      Delete band
-    </Button>
+        Band
+      </Button>
+      <Button
+        component={Link}
+        to={`/bands/${id}/attendance`} 
+        variant="contained"
+        sx={{ mx: 1, minWidth: '140px'}}
+        startIcon={<EditIcon />}
+      >
+        Attendance
+      </Button>
+    </Box>
     <Button onClick={handleClickVariant('success')}>Show success snackbar</Button>
   </Box>
   <Box sx={{ mt: 1 }}>
   {band?.festivals?.length ?
-    band.festivals.map((item, idx) => {
+    <>
+    <Typography variant="h4">
+      The band plays here:
+    </Typography>
+    {band.festivals.map((item, idx) => {
         return <Typography variant="body2" key={idx}> <br />Festival ID: {item}<br /></Typography>
-    })
+    })}
+    </>
     :
     <>
       <Typography variant="body2">
@@ -129,12 +149,12 @@ export default function BandDetails(props) {
       <BandAddToFestivalModal />
     </>
   }
-  <Typography variant="body2">
+{/*   <Typography variant="body2">
       List of festivals a user has:
   </Typography>
   {state.user.festivals.map((item, idx) => {
       return <div key={idx}> <br />Name:{item.name} <br />ID: {item._id} <br /></div>
-  })}
+  })} */}
   </Box>
   <Box
     component="form"

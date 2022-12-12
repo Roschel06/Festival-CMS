@@ -8,7 +8,9 @@ import Dashboard from './components/Dashboard'
 import Stages from './components/Stages';
 import BandList from './components/BandList';
 import BandDetails from './components/BandDetails';
+import BandEdit from './components/BandEdit';
 import BandAdd from './components/BandAdd';
+import BandAttendance from './components/BandAttendance';
 import Facilities from './components/Facilities';
 import FoodServices from './components/FoodServices';
 import Shopping from './components/Shopping';
@@ -98,6 +100,8 @@ function App() {
                         <Route path='/stages' element={<Stages />} />
                         <Route path='/bands' element={<BandList />} />
                         <Route path='/bands/:id' element={<BandDetails />} />
+                        <Route path='/bands/:id/edit' element={<BandEdit />} />
+                        <Route path='/bands/:id/attendance' element={<BandAttendance />} />
                         <Route path='/add-band' element={<BandAdd />} />
                         <Route path='/facilities' element={<Facilities />} />
                         <Route path='/food-services' element={<FoodServices />} />

@@ -13,10 +13,11 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import MusicVideoTwoToneIcon from '@mui/icons-material/MusicVideoTwoTone';
 
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { AppContext } from './Context'
 import {Link, useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios';
+import { Divider } from '@mui/material';
 
 const pages = [
   {name: 'Festivals', path: 'festivals'},
@@ -25,12 +26,17 @@ const pages = [
   {name: 'Facilities', path: 'facilities'},
   {name: 'Food services', path: 'food-services'},
   {name: 'Shopping', path: 'shopping'}]
+
+  const dataBase = [
+    {name: 'Festivals', path: 'festivals', db: 'db'},
+    {name: 'Stages', path: 'stages',db: 'db'},
+    {name: 'Bands', path: 'bands',db: 'db'},
+    {name: 'Facilities', path: 'facilities', db: 'db'},
+    {name: 'Food services', path: 'food-services', db: 'db'},
+    {name: 'Shopping', path: 'shopping', db: 'db'}]   
 const settings = ['Profile'];
 
-function ResponsiveAppBar() {
-
-  
-  //const {festivalName} = useParams();
+function ResponsiveAppBar({setDatabase}) {
 
     const {state, dispatch} = useContext(AppContext)
     const [data, setData] = useState({...state.user})
@@ -135,7 +141,7 @@ console.log('Header data is', data); */
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick={handleOpenUserMenu} onMouseOver={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt={state.user.firstName} src={'/images/' + data.image}  sx={{ color: "#ffffff", bgcolor: ' rgb(255 255 255 / 25%)' }}/>
               </IconButton>
             </Tooltip>
@@ -155,10 +161,24 @@ console.log('Header data is', data); */
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+             <Typography sx={{ pl: '16px', pr: '16px', fontWeight: 'bold', color: '#8f91a9' }}>General database</Typography>
+              {dataBase.map((page) => (
+                <MenuItem key={page.name} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">
-                    <Link style={{textDecoration: "none"}} to={`/${setting}`}>{setting}</Link>
+                    <Link style={{textDecoration: "none"}} to={`/${page.name}`} db={page.db}>{page.name}</Link>
+                  </Typography>
+                </MenuItem>
+              ))}
+              <Divider />
+{/*               <MenuItem onClick={handleLogout}>
+                  <Typography textAlign="center">
+                    <Link style={{textDecoration: "none"}} to={'/profile'}>Profile</Link>
+                  </Typography>
+              </MenuItem> */}
+              {settings.map((page) => (
+                <MenuItem key={page} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">
+                    <Link style={{textDecoration: "none"}} to={`/${page}`}>{page}</Link>
                   </Typography>
                 </MenuItem>
               ))}

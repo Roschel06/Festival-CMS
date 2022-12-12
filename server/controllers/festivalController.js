@@ -53,7 +53,6 @@ module.exports.add = async (req, res) => {
 module.exports.select = async (req, res) => {
     try {
         
-        console.log('hello from select festival server side');
         console.log("🚀 ~ select festival: req.body", req.body)
         
         const {currentFestival, _id} = req.body

@@ -6,7 +6,7 @@ module.exports.add = async (req, res) => {
 
     try {
 
-        const {name, owner} = req.body
+        const {name, owner, include, currentFestival} = req.body
         console.log("🚀 ~ req.body", req.body)
         console.log("🚀 ~ profile: req.file", req.file)
 
@@ -25,6 +25,32 @@ module.exports.add = async (req, res) => {
         }    
             
         console.log("🚀 ~ newBand is ", newBand)
+
+        let newBandForFestival;
+
+        if (include) { 
+            newBandForFestival = await Festival.findByIdAndUpdate({ _id: currentFestival},
+            {
+                $push : {bands: newBand._id}
+            },
+            {new: true}
+            )
+                
+            console.log("🚀 ~ newBandForFestival", newBandForFestival)
+        } 
+
+        let newFestivalInBand;
+
+        if (currentFestival) { 
+            newFestivalInBand = await Band.findByIdAndUpdate({ _id: newBand._id},
+            {
+                $push : {festivals: currentFestival}
+            },
+            {new: true}
+            )
+            
+            console.log("🚀 ~ newFestivalInBand", newFestivalInBand)
+        }
         
             
         res.send({success: true, newBand})
@@ -176,13 +202,39 @@ module.exports.singleband = async (req, res) => {
 module.exports.edit = async (req, res) => {
     try {
 
-        console.log('Logging hello from band edit');
-        
-        res.send('hello from res.send band edit')
+        console.log("🚀 ~ profile: req.body", req.body)
+        console.log("🚀 ~ profile: req.file", req.file)
 
-    } catch (error) {
+        const {name, _id} = req.body
+
+        if(!name || !_id){
+            res.send({success: false, errorId: 1})
+            return
+        }
+
+        if(req.file?.filename) req.body.logo = req.file?.path
+
+        const band = await User.findByIdAndUpdate(_id, {
+            logo: req.body.logo, 
+            name: req.body.name,
+            countryOfOrigin: req.body.countryOfOrigin,
+            contactFirstName: req.body.contactFirstName,
+            contactLastName: req.body.contactLastName,
+            genre: req.body.genre,
+        }, {new: true})
+        .select('-__v -password')
+        console.log("🚀 ~ band", band)
         
-        console.log("🚀 ~ Error in edit band", error.message)
+        if(!band){
+            res.send({success: false, errorId: 2})
+            return
+        }
+
+        res.send({success: true, band})
+    } catch (error) {
+    
+        console.log("🚀 ~ Error in Profile users", error.message)
+
         res.send({success: false, error: error.message})
         
     }

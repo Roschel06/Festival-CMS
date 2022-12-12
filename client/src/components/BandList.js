@@ -12,12 +12,12 @@ import {boxStyle} from './utilities/Box'
 import { Avatar } from '@mui/material';
 
 export default function BandList() {
+  
+  const {state, dispatch} = useContext(AppContext)
+  const [user, setUser] = useState({...state.user})
+  console.log("🚀 ~ user", user)
 
-    const {state, dispatch} = useContext(AppContext)
-    const [user, setUser] = useState({...state.user})
-    console.log("🚀 ~ user", user)
-
-    
+   
     useEffect(() => {
         getData()
     }, [])

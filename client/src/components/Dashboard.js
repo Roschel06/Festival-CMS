@@ -12,7 +12,7 @@ export default function Dashboard() {
   const cards = [1, 2, 3, 4, 5, 6];
   const navigate = useNavigate()
   const {state, dispatch} = useContext(AppContext)
-  const [bandList, setBandList] = useState({...state.user})
+  const [user, setUser] = useState({...state.user})
   
   useEffect(() => {
       getData()
@@ -20,13 +20,18 @@ export default function Dashboard() {
 
   const getData = async () => {
     const {data} = await axios.get('/bands/list')
-    setBandList(data)
+    setUser(data)
   } 
   console.log('currentFestival is ', state.user);
-  const filteredBands = bandList.bands.filter(item => item.owner === state.user._id)
-const newFilteredBands = bandList.bands.filter(item => item.owner === state.user._id && item.festivals.includes(state.user.currentFestival))
-  return (
+  const filteredBands = user.bands.filter(item => item.owner === state.user._id)
+const newFilteredBands = user.bands.filter(item => item.owner === state.user._id && item.festivals.includes(state.user.currentFestival))
+
+  const festivalName = state.user.festivals.filter(item => item._id === state.user.currentFestival)
+  console.log("🚀 ~ festivalName", festivalName)
+  // console.log("🚀 ~ user.festivals", state.user.festivals)
+return (
     <Container sx={{ py: 8 }} maxWidth="xl">
+          {festivalName.map((item, idx) => <Typography variant="h3" color="secondary" sx={{ mb:4, textAlign: 'center' }} key={idx}>{item.name}</Typography>)}
           <Grid container spacing={4}>
               <Grid item xs={12} sm={6} md={4}>
                 <Card

@@ -6,7 +6,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-import IconButton from '@mui/material/IconButton';
+import {IconButton, Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 import InputLabel from '@mui/material/InputLabel';
@@ -23,6 +23,11 @@ import {boxStyle} from './utilities/Box'
 export default function BandAdd() {
 
   const {state, dispatch} = useContext(AppContext)
+  const [user, setUser] = useState({...state.user})
+  console.log("🚀 ~ user currentFestival", user.currentFestival)
+
+  const [checkbox, setCheckbox] = useState(false)
+
   const [file, setFile] = useState(null) 
 
   const [band, setBand] = useState({
@@ -57,6 +62,9 @@ export default function BandAdd() {
       Object.entries(band).forEach(item => formdata.set(item[0], item[1]))
       
       if(file) formdata.set('image', file, 'band-logo')
+
+      formdata.set('include', checkbox)
+      formdata.set('currentFestival', user.currentFestival)
       const config = {
         Headers: {'content-type': 'multipart/form-data'}
       }
@@ -124,7 +132,16 @@ console.log('Band is ', band);
             value={band.countryOfOrigin}
             onChange={e => setBand({...band, countryOfOrigin: e.target.value})}
         />
-        <Typography component="h3" variant="h5">
+        <TextField
+            margin="normal"
+            fullWidth
+            id="genre"
+            label="Genre"
+            name="genre"
+            value={band.genre}
+            onChange={e => setBand({...band, genre: e.target.value})}
+        />
+        <Typography component="h3" variant="h5" sx={{mt: 2}}>
           Contact person
         </Typography>
         <TextField
@@ -145,15 +162,9 @@ console.log('Band is ', band);
             value={band.contactLastName}
             onChange={e => setBand({...band, contactLastName: e.target.value})}
         />
-        <TextField
-            margin="normal"
-            fullWidth
-            id="genre"
-            label="Genre"
-            name="genre"
-            value={band.genre}
-            onChange={e => setBand({...band, genre: e.target.value})}
-        />
+          <FormGroup>
+            <FormControlLabel control={<Checkbox value={checkbox} onChange={e => setCheckbox(e.target.checked)}/>} label="Include in current festival" />
+          </FormGroup>
         <Button
             type="submit"
             fullWidth

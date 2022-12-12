@@ -97,7 +97,7 @@ export default function Festival() {
         payload: { ...response.data.user },
       });
     } else {
-      console.log("Sorry");
+      console.log("There was an error");
     }
   };
 

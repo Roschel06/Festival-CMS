@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const {Schema} = mongoose
 
-const bandInFestivalSchema = new Schema({
+const bandAttendanceSchema = new Schema({
     band: {
         type: Schema.Types.ObjectId,
         ref: 'Band'
@@ -34,4 +34,4 @@ const bandInFestivalSchema = new Schema({
 
 }) 
 
-module.exports = mongoose.model('Bandinfestival', bandInFestivalSchema)
+module.exports = mongoose.model('Bandattendance', bandAttendanceSchema)

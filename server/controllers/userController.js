@@ -23,7 +23,7 @@ module.exports.register = async (req, res) => {
         const userCreated = await User.create(req.body)
         console.log("🚀 ~ userCreated", userCreated)
 
-        const token = jwt.sign({_id: userCreated._id}, process.env.JWT_SECRET, {expiresIn: '1h'})
+        const token = jwt.sign({_id: userCreated._id}, process.env.JWT_SECRET, {expiresIn: '24h'})
         sendMail(token, 'register')
 
         res.send({success: true})
@@ -158,7 +158,7 @@ module.exports.forgotPassword = async (req, res) => {
 
         if (!user) return res.send ({success: false, error: 10})
 
-        const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET, {expiresIn: '1h'})
+        const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET, {expiresIn: '24h'})
 
         sendMail(token, 'forgotpassword')
        
