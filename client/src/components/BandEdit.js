@@ -71,7 +71,7 @@ export default function BandEdit(props) {
 
         const formdata = new FormData()
 
-        Object.entries(data).forEach(item => formdata.set(item[0], item[1]))
+        Object.entries(band).forEach(item => formdata.set(item[0], item[1]))
         
         if(file) formdata.set('image', file, 'band-logo')
 

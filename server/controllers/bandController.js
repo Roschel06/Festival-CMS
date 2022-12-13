@@ -202,7 +202,7 @@ module.exports.edit = async (req, res) => {
         console.log("🚀 ~ profile: req.body", req.body)
         console.log("🚀 ~ profile: req.file", req.file)
 
-        const {name, _id} = req.body
+/*         const {name, _id} = req.body
 
         if(!name || !_id){
             res.send({success: false, errorId: 1})
@@ -227,10 +227,10 @@ module.exports.edit = async (req, res) => {
             return
         }
 
-        res.send({success: true, band})
+        res.send({success: true, band}) */
     } catch (error) {
     
-        console.log("🚀 ~ Error in Profile users", error.message)
+        console.log("🚀 ~ Error in edit band", error.message)
 
         res.send({success: false, error: error.message})
         

@@ -94,7 +94,8 @@ export default function BandDetails(props) {
 
     if (response.data.success) {
       console.log("🚀 ~ Yeah it works!")
-      handleClickVariant('success')
+      enqueueSnackbar('This is a success message!');
+      //handleClickVariant('success')
       
     } else {
       console.log('There was an error');
@@ -233,7 +234,7 @@ export default function BandDetails(props) {
         label="Festival"
         onChange={e => setFestival(e.target.value)}
       >
-        {state.user.festivals.map((festival, idx) => (
+        {bandInFestivals.map((festival, idx) => (
           <MenuItem key={idx} value={festival._id}>
             {festival.name}
           </MenuItem>

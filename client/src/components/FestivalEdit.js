@@ -58,10 +58,10 @@ export default function FestivalEdit() {
       
           const response = await axios.patch("/festivals/edit", editFestival);
           console.log("🚀 ~ Patch response", response); */
-
+/*
          const formdata = new FormData()
 
-        Object.entries(festival.festival).forEach(item => formdata.set(item[0], item[1]))
+         Object.entries(festival.festival).forEach(item => formdata.set(item[0], item[1]))
         //formdata.set('_id', festival.festival._id)
         console.log(...formdata)
         //if(file) formdata.set('image', file, 'profile-image')
@@ -69,7 +69,8 @@ export default function FestivalEdit() {
         const config = {
             Headers: {'content-type': 'multipart/form-data'}
         }
-        const response = await axios.patch(`/festivals/edit`, festival, config)
+        const response = await axios.patch(`/festivals/edit`, formdata, config) */
+        const response = await axios.patch(`/festivals/edit`, festival)
         console.log("🚀 ~ response", response)
 
 /*          if (response.data.success) {

@@ -107,6 +107,12 @@ header a:hover{
 /*---- Dashboard ------------------------------------------*/
 /*--------------------------------------------------------*/
 
+.card__list--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .card__list a {
   display: block;
 }
@@ -144,7 +150,14 @@ header a:hover{
     display: flex;
   }
 }
-
+@media screen and (min-width: 600px) {
+  .card__list {
+    height: 192px;
+  }
+  .card__list--empty {
+    height: 212px;
+}
+}
 @media screen and (min-width: 900px) {
     .appLogo--xs {
       display: none;

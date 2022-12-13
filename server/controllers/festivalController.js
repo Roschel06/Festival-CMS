@@ -116,37 +116,34 @@ module.exports.edit = async (req, res) => {
 
     try {
 
-        console.log("🚀 ~ profile: req.body", req.body)
-        //console.log("🚀 ~ profile: req.file", req.file)
+        console.log("🚀 ~ edit Festival: req.body", req.body)
+        //console.log("🚀 ~ edit Festival: req.file", req.file)
 
         const {_id} = req.body
-        console.log("🚀 ~ _id", _id)
 
-/*         if(!email || !_id){
+        if(!_id){
             res.send({success: false, errorId: 1})
             return
         }
 
-        if(req.file?.filename) req.body.image = req.file?.filename
+        //if(req.file?.filename) req.body.image = req.file?.filename
 
-        const user = await User.findByIdAndUpdate(_id, {
-            image: req.body.image, 
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            role: req.body.role
+        const festival = await Festival.findByIdAndUpdate(_id, {
+            //image: req.body.image, 
+            name: req.body.name
         }, {new: true})
-        .select('-__v -password')
-        console.log("🚀 ~ user", user)
+        .select('-__v')
+        console.log("🚀 ~ festival", festival)
         
-        if(!user){
+        if(!festival){
             res.send({success: false, errorId: 2})
             return
         }
 
-        res.send({success: true, user}) */
+        res.send({success: true, festival})
     } catch (error) {
     
-        console.log("🚀 ~ Error in Profile users", error.message)
+        console.log("🚀 ~ Error in edit festival", error.message)
 
         res.send({success: false, error: error.message})
         
