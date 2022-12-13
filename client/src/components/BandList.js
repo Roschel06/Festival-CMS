@@ -33,6 +33,11 @@ export default function BandList() {
     console.log("🚀 ~ filteredBands", filteredBands)
 
 
+    const filteredBandsInCurrentFestival = filteredBands.filter(item => item.festivals === user.currentFestival)
+    console.log("🚀 ~ user.currentFestival", user)
+    console.log("🚀 ~ filteredBandsInCurrentFestival", filteredBandsInCurrentFestival)
+
+
 
 let rows = []
 for (let i = 0; i < filteredBands.length; i++) {

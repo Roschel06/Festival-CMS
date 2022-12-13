@@ -15,7 +15,7 @@ export default function BandEdit(props) {
     const {state, dispatch} = useContext(AppContext)
     const [data, setData] = useState({...state.user})
     const [band, setBand] = useState({})
-    const [imgUrl, setImgUrl] = useState(band?.logo ? '/images/' + band?.logo : null)
+    const [imgUrl, setImgUrl] = useState(null)
     const [file, setFile] = useState(null) 
 
 
@@ -25,10 +25,34 @@ export default function BandEdit(props) {
     }, [])
     
     const getData = async () => {
-      const {data} = await axios.get(`/bands/${id}`)
-      setBand({...data?.band})
-    } 
+        try {
+          const { data } = await axios.get(`/bands/${id}`);
+          setBand(data.band);
+          setImgUrl(data.band.logo);
+        } catch (error) {
+          console.error(error.message)
+        }
+      }
 
+/*       const getData = async () => {
+        try {
+          const getBands = await axios.get(`/bands/${id}`);
+          setBand(getBands.data.band);
+          setImgUrl(getBands.data.band.logo);
+        } catch (error) {
+          console.error(error.message)
+        }
+      } */
+
+/* 
+      const getData = () => {
+        axios(`/bands/${id}`)
+          .then(({data}) => {
+            setBand(data.band);
+            setImgUrl(data.band.logo);
+          })
+          .catch(error => console.error(error.message));
+      } */
  
     console.log("🚀 ~ band", band)
     console.log("🚀 ~ band", band?.logo)

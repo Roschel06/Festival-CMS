@@ -169,6 +169,7 @@ module.exports.list = async (req, res) => {
     try {
 
         const bands = await Band.find().sort('-_id')
+        .populate('attendance')
         res.send({success: true, bands})
 
     } catch (error) {

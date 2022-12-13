@@ -94,7 +94,7 @@ export default function BandDetails(props) {
 
     if (response.data.success) {
       console.log("🚀 ~ Yeah it works!")
-      handleClickVariant()
+      handleClickVariant('success')
       
     } else {
       console.log('There was an error');
@@ -112,12 +112,12 @@ export default function BandDetails(props) {
     }
   }
 
-/* 
-   const bandInFestivals = user.festivals.filter((item,) => !band.festivals.includes(item._id) )
+
+   const bandInFestivals = user.festivals?.filter((item,) => !band.festivals?.includes(item._id) )
    console.log("🚀 ~ bandInFestivals", bandInFestivals)
 
    console.log("🚀 ~ band.festivals", band.festivals)
-   console.log("🚀 ~ data.festivals", user.festivals) */
+   console.log("🚀 ~ data.festivals", user.festivals)
 
   return (
 

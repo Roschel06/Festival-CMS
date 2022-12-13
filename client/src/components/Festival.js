@@ -68,9 +68,11 @@ export default function Festival() {
       name,
       owner: state.user._id,
     });
-    if (response.data.success) {
+    
+    console.log("🚀 ~ response", response)
+/*     if (response.data.success) {
       navigate("/dashboard"); // ??? should link to /dashboard/${festival.name}
-    }
+    } */
   };
 
 

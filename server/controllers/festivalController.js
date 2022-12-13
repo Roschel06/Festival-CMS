@@ -41,7 +41,7 @@ module.exports.add = async (req, res) => {
 
         console.log("🚀 ~ updateFestivalInUser", updateFestivalInUser) 
 
-        res.send({success: true})
+        res.send({success: true, updateFestivalInUser})
     } catch (error) {
     
         console.log("🚀 ~ Error in add festival", error.message)

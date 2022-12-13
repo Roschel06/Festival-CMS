@@ -88,7 +88,7 @@ const bandSchema = new Schema({
         ref: 'Festival' 
     }],
     attendance: [{
-        type: Schema.Types.ObjectId,
+        type: mongoose.ObjectId,
         ref: 'Bandattendance' 
     }]
 
