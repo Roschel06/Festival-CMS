@@ -12,7 +12,7 @@ export default function BandAttendance(props) {
     const navigate = useNavigate()
 
     const {state, dispatch} = useContext(AppContext)
-    const [data, setData] = useState({...state.user})
+    const [user, setUser] = useState({...state.user})
     const [band, setBand] = useState({})
     const [attendance, setAttendance] = useState ({})
 
@@ -31,17 +31,18 @@ export default function BandAttendance(props) {
         const attendanceDetails = {
             ...attendance,
             band: band._id,
-            attendance: data.currentFestival
+            festival: user.currentFestival,
+            owner: user._id
           }
 
-        const response = await axios.patch(`/band-attendance/add`, attendanceDetails)
+        const response = await axios.post(`/band-attendance/add`, attendanceDetails)
         console.log("🚀 ~ response", response)
 
         if (response.data.success) {
           navigate(`/bands/${id}`)
         } else {
             if(response.data.error === 1){
-                console.log("There was an error")
+                console.log("Attendance could not be assigned")
             }
         }
 

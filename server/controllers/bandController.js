@@ -183,10 +183,6 @@ module.exports.singleband = async (req, res) => {
     try {
 
         const band = await Band.findOne({_id: req.params.id})
-/*         .populate({
-            path: 'name',
-            select: 'band'
-        }) */
         
         console.log("🚀 ~ band in details is", band)
         

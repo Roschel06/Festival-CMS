@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 const {Schema} = mongoose
 
 const bandAttendanceSchema = new Schema({
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     band: {
         type: Schema.Types.ObjectId,
         ref: 'Band'

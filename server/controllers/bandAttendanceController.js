@@ -1,4 +1,4 @@
-const BandAttendance = require('../models/BandAttendance')
+const Bandattendance = require('../models/BandAttendance')
 const Band = require('../models/Band')
 
 module.exports.add = async (req, res) => {
@@ -7,15 +7,15 @@ module.exports.add = async (req, res) => {
         console.log("🚀 ~ attendance req.body", req.body)
         
 
-        const {band, attendance} = req.body
+        const {band, festival} = req.body
 
 
-        if (!band || !attendance) {
+        if (!band || !festival) {
             res.send({success: false, error: 1})
             return
         }
 
-        const newAttendance = await BandAttendance.create(req.body)
+        const newAttendance = await Bandattendance.create(req.body)
         
         if (!newAttendance) {
             res.send({success: false, error: 1})
@@ -26,7 +26,7 @@ module.exports.add = async (req, res) => {
 
         let newAttendanceForBand;
 
-        if (attendance) { 
+        if (festival) { 
             newAttendanceForBand = await Band.findByIdAndUpdate({ _id: band},
             {
                 $push : {attendance: newAttendance._id}
@@ -35,6 +35,10 @@ module.exports.add = async (req, res) => {
             )
                 
             console.log("🚀 ~ newAttendanceForBand", newAttendanceForBand)
+
+/*             const bandFound = await Band.findOne({_id: band})
+            .populate({path: 'attendance', select: 'festival'})
+            console.log("🚀 ~ bandFound", bandFound) */
         } 
        
             
@@ -48,18 +52,37 @@ module.exports.add = async (req, res) => {
         
     }
 }
+module.exports.list = async (req, res) => {
+    try {
+        console.log("🚀 ~ list parmas", req.params)
+        
+        const allAttendance = await Bandattendance.find({owner: req.params.owner})
+        console.log("🚀 ~ allAttendance", allAttendance)
+        res.send({success: true, allAttendance})
+
+    } catch (error) {
+        
+        console.log("🚀 ~ Error in list attendance", error.message)
+        res.send({success: false, error: error.message})
+        
+    }
+}
 module.exports.singleAttendance = async (req, res) => {
     try {
         
-        console.log("🚀 ~ attendance req.body", req.body)
+        console.log("🚀 ~ req.body", req.params)
+
         
 
-    
-        //res.send({success: true, newAttendance})
+        const attendance = await Bandattendance.findOne({_id: req.params.id})
+                
+        console.log("🚀 ~ band attendance in details is", attendance)
+        
+        res.send({success: true, attendance})
 
     } catch (error) {
     
-        console.log("🚀 ~ Error in select festival", error.message)
+        console.log("🚀 ~ Error in singleAttendance", error.message)
 
         res.status(500).send({success: false, error: error.message})
         
