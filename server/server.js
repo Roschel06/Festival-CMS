@@ -7,9 +7,12 @@ db()
 
 app.use(express.json())
 app.use(cookieParser())
+
 app.use('/images', express.static('./uploads'))
 app.use('/user', require('./routes/userRoutes'))
 
+app.use('/festival', require('./routes/festivalRoutes'))
+app.use('/bands', require('./routes/bandsRoutes'))
 const port = process.env.PORT || 5000
 
 app.listen(port, () => console.log('Server is up and running at port', port))

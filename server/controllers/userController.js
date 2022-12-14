@@ -1,4 +1,4 @@
-const User = require('../models/user')
+const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { sendMail } = require('../utilities/mail')
@@ -13,7 +13,6 @@ module.exports.register = async (req, res) => {
 
         if (!email || !password ) {
             res.send({success: false, error: 'validation failed'})
-
             return
         }
 
@@ -63,20 +62,20 @@ module.exports.login = async (req, res) => {
         
         console.log("🚀 ~ login here: ")
         
-        const {email, username, password} = req.body 
+        const {email, password} = req.body 
         if (!email || !password) {
             res.send({success: false, error: 1})
             return
         }
 
         const userFound = await User.findOne({email, verified: true})
+        .populate({path: 'festivals', select: 'name'})
+        //.populate({path: 'bands', select: 'name'})
         .select('-__v')
-        console.log("🚀 ~ userFound", userFound)
 
         if (!userFound) return res.send({success: false, error: 2})
 
         const isMatch = await bcrypt.compare(password, userFound.password)
-            console.log("🚀 ~ isMatch", isMatch)
         
         if (!isMatch) return res.send({success: false, error: 3})
 
@@ -85,7 +84,7 @@ module.exports.login = async (req, res) => {
 
         const user = userFound.toObject()
         delete user.password
-        console.log("🚀 ~ userFound after delete", user)
+        console.log("🚀 ~ userFound - excluding password", user)
             
         res.send({success: true, user})
     } catch (error) {
@@ -127,7 +126,13 @@ module.exports.profile = async (req, res) => {
 
         if(req.file?.filename) req.body.image = req.file?.filename
 
-        const user = await User.findByIdAndUpdate(_id, req.body, {new: true}).select('-__v -password')
+        const user = await User.findByIdAndUpdate(_id, {
+            image: req.body.image, 
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            role: req.body.role
+        }, {new: true})
+        .select('-__v -password')
         console.log("🚀 ~ user", user)
         
         if(!user){

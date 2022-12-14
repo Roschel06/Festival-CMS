@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -11,14 +10,11 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import {useState, useContext} from 'react'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 import { AppContext } from './Context'
-
-const theme = createTheme();
 
 export default function Login() {
 
@@ -32,14 +28,14 @@ export default function Login() {
 
   const handleLogin = async (event) => {
 
-      if ((!data.email && !data.username) || !data.password) {
+      if (!data.email || !data.password) {
           alert('Please provide some data')
           return
       }
       event.preventDefault();
 
       const response = await axios.post('/user/login', data)
-      console.log("🚀 ~ response", response)
+      //console.log("🚀 ~ response", response)
 
       if (response.data.success) {
             dispatch({
@@ -52,9 +48,7 @@ export default function Login() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
@@ -121,6 +115,5 @@ export default function Login() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
   );
 }
