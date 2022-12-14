@@ -150,3 +150,56 @@ module.exports.edit = async (req, res) => {
         
     }
 }
+module.exports.addBands = async (req, res) => {
+
+    try {
+        console.log("🚀 ~ edit Festival: req.body", req.body)
+        const {currentFestival, selectedRows} = req.body
+        console.log("🚀 ~ selectedRows", selectedRows)
+
+        const festival = await Festival.findOne({_id: currentFestival})
+        
+        console.log("🚀 ~ currentFestival is", festival)
+
+        let notDouble = [];
+
+        for (let i = 0; i < selectedRows.length; i++) {          
+            if(`new ObjectId('${selectedRows[i].id}')` == festival.bands[i].toString() ){
+                console.log('Is already in list ', selectedRows[i].id);
+            }else{
+                console.log('Will be added ', selectedRows[i].id);
+            }
+          }
+            
+/*               for (let i = 0; i < selectedRows.length; i++) {
+                        console.log('selectedRows: ', selectedRows[i].id);
+              }
+              for (let i = 0; i < festival.bands.length; i++) {
+                    console.log('festival.bands ', festival.bands[i]);
+                } */
+
+
+/*         Festival.findOne({_id: currentFestival}).then(function(bands) {
+            var jobQueries = [];
+          
+            bands.forEach(function(u) {
+              jobQueries.push(Band.find({_id: }));
+            }); */
+          
+/*             return Promise.all(jobQueries );
+          }).then(function(listOfJobs) {
+              res.send(listOfJobs);
+          }).catch(function(error) {
+              res.status(500).send('one of the queries failed', error);
+          }); */
+
+
+        res.send({success: true})
+    } catch (error) {
+    
+        console.log("🚀 ~ Error in edit festival", error.message)
+
+        res.send({success: false, error: error.message})
+        
+    }
+}

@@ -22,6 +22,7 @@ export default function Festival() {
   const [name, setName] = useState("");
   const [rowId, setRowId] = useState(null);
   
+  console.log("🚀 ~ user", user)
   const navigate = useNavigate();
 
   const festivals = user.festivals
@@ -30,10 +31,10 @@ export default function Festival() {
   let rows = []
   for (let i = 0; i < festivals.length; i++) {
   rows.push({ 
-    id: festivals[i]._id, 
-    band: festivals[i].name,
-    genre: festivals[i].genre,
-    logo: festivals[i].logo
+    id: festivals[i]?._id, 
+    band: festivals[i]?.name,
+    genre: festivals[i]?.genre,
+    logo: festivals[i]?.logo
   })
   }
 /*     const columns = useMemo (() =>  [

@@ -9,35 +9,39 @@ import axios from 'axios'
 import { AppContext } from './Context'
 import {Link} from 'react-router-dom'
 import {boxStyle} from './utilities/Box'
+import {buttonBoxStyle} from './utilities/ButtonBox'
 import { Avatar } from '@mui/material';
 
 export default function BandList() {
   
   const {state, dispatch} = useContext(AppContext)
-  console.log("🚀 ~ state", state)
   //const [bands, setBands] = useState({...state.user})
   const [bands, setBands] = useState({})
   const [bandsCurrentFestival, setBandsCurrentFestival] = useState({})
   const [allAttendance, setAllAttendance] = useState([])
-  console.log("🚀 ~ allAttendance", allAttendance)
-  //console.log("🚀 ~ allAttendance special", allAttendance?.data?.allAttendance)
-
-  //console.log("🚀 ~ bandsCurrentFestival special", bandsCurrentFestival?.data?.bands)
-
-  console.log("🚀 ~ bandsCurrentFestival", bandsCurrentFestival)
-/*   const allBands = bands?.data?.bands
-  console.log("🚀 ~ allBands", allBands) */
-/*   const currentFestivalBands = bandsCurrentFestival?.data?.bands
-  console.log("🚀 ~ currentFestivalBands", currentFestivalBands) */
-//console.log('length is ', currentFestivalBands?.length);
-//console.log('band 0 ', currentFestivalBands[0]?.name);
-//console.log('band 0 special ', bandsCurrentFestival?.data?.bands[0].name);
+  const [selectedRows, setSelectedRows] = useState([])
+  console.log("🚀 ~ selectedRows", selectedRows)
   
   useEffect(() => {
       getData()
       getBandsInCurrentFestival()
       getUserAttendance()
+      sendSelectedBandsToFestival()
   }, [])
+
+
+  const sendSelectedBandsToFestival = async (event) => {
+    event.preventDefault();
+
+    const selectedRowsNew = {
+      currentFestival: state.user.currentFestival,
+      selectedRows
+    }
+
+    const response = await axios.patch(`/festivals/addBands`, selectedRowsNew)
+    console.log("🚀 ~ response", response)
+  
+  }
 
   const getData = async () => {
     const response = await axios.get(`/bands/list/${state.user._id}`)
@@ -46,10 +50,31 @@ export default function BandList() {
 
   const getBandsInCurrentFestival = async () => {
     const response = await axios.get(`/bands/list/${state.user._id}/${state.user.currentFestival}`)
-    setBandsCurrentFestival(response)
-        
+    
     if (response.data.success) {
-      console.log("🚀 ~ Yeah it works!")     
+
+      const attendancTableDataArray = response.data.bands.map(item => {
+      
+        const attendancTableData = item.attendance.find(el => el.festival === state.user.currentFestival)
+  
+        if (attendancTableData) {
+  
+          item.attendancTableData = {
+            stage: attendancTableData.stage ,
+            time: attendancTableData.time,
+            day: attendancTableData.day
+          }
+        } else {
+          item.attendancTableData = {
+            stage: '' ,
+            time: '',
+            day: ''
+          }
+        }
+  
+        return item
+      })
+      setBandsCurrentFestival(attendancTableDataArray) 
     } else {
       console.log('There was an error');
     }
@@ -59,6 +84,15 @@ export default function BandList() {
     const response = await axios.get(`/band-attendance/festival/${state.user.currentFestival}`)
     setAllAttendance(response)
   } 
+
+
+  const onRowsSelectionHandler = (ids) => {
+    const selectedRowsData = ids.map((id) => rows.find((row) => row.id === id));
+    setSelectedRows(selectedRowsData)
+    //console.log(selectedRowsData);
+  };
+
+
 
 
 
@@ -121,19 +155,15 @@ export default function BandList() {
   } */
   
   let rowsCurrentFestival = []
-  for (let i = 0; i < bandsCurrentFestival?.data?.bands?.length; i++) {
+  for (let i = 0; i < bandsCurrentFestival.length; i++) {
     rowsCurrentFestival.push({ 
-      id: bandsCurrentFestival?.data?.bands[i]?._id, 
-      band: bandsCurrentFestival?.data?.bands[i]?.name,
-      genre: bandsCurrentFestival?.data?.bands[i]?.genre,
-      logo: bandsCurrentFestival?.data?.bands[i]?.logo,
-      stage:  allAttendance?.data?.allAttendance?.forEach((item, idx) => {
-              if(item.band === bandsCurrentFestival?.data?.bands[idx]._id){
-                console.log('yes', item.stage, item.day);
-              } else {
-                console.log('no');
-              }
-            }),
+      id: bandsCurrentFestival[i]?._id, 
+      band: bandsCurrentFestival[i]?.name,
+      genre: bandsCurrentFestival[i]?.genre,
+      logo: bandsCurrentFestival[i]?.logo,
+      stage: bandsCurrentFestival[i]?.attendancTableData?.stage,
+      day: bandsCurrentFestival[i]?.attendancTableData?.day,
+      time: bandsCurrentFestival[i]?.attendancTableData?.time,
     })
   }
   const columnsCurrentFestival = [
@@ -142,6 +172,8 @@ export default function BandList() {
     { field: 'band', headerName: 'band', flex: 1},
     { field: 'genre', headerName: 'Genre', flex: 1, sortable: false,},
     { field: 'stage', headerName: 'Stage', flex: 1},
+    { field: 'day', headerName: 'Day', flex: 1},
+    { field: 'time', headerName: 'Time', flex: 1},
     { field: 'link', headerName: 'Link', flex: 1, renderCell: (params) => {
       return <Typography component="body2" component={Link} to={`/bands/${params.id}`}>Details</Typography>;
     } },
@@ -157,15 +189,25 @@ export default function BandList() {
         <Typography component="h1" variant="h5">
             Actions
         </Typography>
-        <Button
+      <Box sx={buttonBoxStyle}>
+      <Button
+        component={Link}
+        onClick={sendSelectedBandsToFestival}
+        variant="outlined"
+        sx={{ m: 1, minWidth: '140px'}}
+      >
+        Add from DB
+      </Button>
+      <Button
           component={Link}
           to={'/add-band'} 
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ m: 1, minWidth: '140px'}}
           >
-            Add new Band
+            Add new band
         </Button>
+    </Box>
       </Box>
         <Box sx={boxStyle}>  
            <Typography component="h1" variant="h5">
@@ -183,6 +225,7 @@ export default function BandList() {
                 pageSize={10}
                 rowsPerPageOptions={[10]}
                 checkboxSelection
+                onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
               />
             </div>
            </Box>
@@ -194,10 +237,11 @@ export default function BandList() {
               <DataGrid
                 rows={rowsCurrentFestival}
                 columns={columnsCurrentFestival}
-                loading={!bandsCurrentFestival?.data?.bands?.length}
+                loading={!bandsCurrentFestival?.length}
                 pageSize={10}
                 rowsPerPageOptions={[10]}
                 checkboxSelection
+                //onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
               />
             </div>
            </Box>

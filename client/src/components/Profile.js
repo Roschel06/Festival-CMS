@@ -34,7 +34,7 @@ export default function Profile() {
             Headers: {'content-type': 'multipart/form-data'}
         }
         const response = await axios.patch('/user/profile', formdata, config)
-        console.log("🚀 ~ response", response)
+        console.log("🚀 ~ response", response.data)
 
         if (response.data.success) {
                 dispatch({

@@ -17,6 +17,7 @@ export default function BandEdit(props) {
     const [band, setBand] = useState({})
     const [imgUrl, setImgUrl] = useState(null)
     const [file, setFile] = useState(null) 
+    console.log("🚀 ~ file", file)
 
 
 
@@ -32,31 +33,9 @@ export default function BandEdit(props) {
         } catch (error) {
           console.error(error.message)
         }
-      }
-
-/*       const getData = async () => {
-        try {
-          const getBands = await axios.get(`/bands/${id}`);
-          setBand(getBands.data.band);
-          setImgUrl(getBands.data.band.logo);
-        } catch (error) {
-          console.error(error.message)
-        }
-      } */
-
-/* 
-      const getData = () => {
-        axios(`/bands/${id}`)
-          .then(({data}) => {
-            setBand(data.band);
-            setImgUrl(data.band.logo);
-          })
-          .catch(error => console.error(error.message));
-      } */
+    }
  
     console.log("🚀 ~ band", band)
-    console.log("🚀 ~ band", band?.logo)
-
 
 
 
@@ -88,7 +67,6 @@ export default function BandEdit(props) {
                 alert('name is mandatory')
             }
         }
-console.log('profile data is', data);
     } 
 
   return (

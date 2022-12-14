@@ -202,7 +202,7 @@ module.exports.listCurrentFestival = async (req, res) => {
 
         const {owner, currentFestival} = req.params
 
-        const bands = await Band.find({$and: [{owner}, {festivals: currentFestival}]})
+        const bands = await Band.find({owner, festivals: currentFestival})
         .sort('-_id')
         .populate('attendance') 
 
@@ -238,7 +238,9 @@ module.exports.edit = async (req, res) => {
         console.log("🚀 ~ profile: req.body", req.body)
         console.log("🚀 ~ profile: req.file", req.file)
 
-/*         const {name, _id} = req.body
+        const {name, _id} = req.body
+        console.log("🚀 ~ name", name)
+        console.log("🚀 ~ _id", _id)
 
         if(!name || !_id){
             res.send({success: false, errorId: 1})
@@ -247,13 +249,13 @@ module.exports.edit = async (req, res) => {
 
         if(req.file?.filename) req.body.logo = req.file?.path
 
-        const band = await User.findByIdAndUpdate(_id, {
+        const band = await Band.findByIdAndUpdate(_id, {
             logo: req.body.logo, 
             name: req.body.name,
             countryOfOrigin: req.body.countryOfOrigin,
             contactFirstName: req.body.contactFirstName,
             contactLastName: req.body.contactLastName,
-            genre: req.body.genre,
+            genre: req.body.genre
         }, {new: true})
         .select('-__v -password')
         console.log("🚀 ~ band", band)
@@ -263,7 +265,7 @@ module.exports.edit = async (req, res) => {
             return
         }
 
-        res.send({success: true, band}) */
+        res.send({success: true, band})
     } catch (error) {
     
         console.log("🚀 ~ Error in edit band", error.message)

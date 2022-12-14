@@ -6,6 +6,10 @@ import axios from 'axios'
 import { AppContext } from './Context'
 import {boxStyle} from './utilities/Box'
 
+import DatePicker from "react-datepicker";
+import { subDays } from "date-fns";
+import { addDays } from "date-fns";
+
 export default function BandAttendance(props) {
 
     const {id} = useParams()
@@ -16,6 +20,28 @@ export default function BandAttendance(props) {
     const [band, setBand] = useState({})
     const [attendance, setAttendance] = useState ({})
 
+    const [startDate, setStartDate] = useState();
+
+    const highlightWithRanges = [
+        {
+          "react-datepicker__day--highlighted-custom-1": [
+            subDays(new Date("2022/12/10"), 4),
+            subDays(new Date("2022/12/10"), 3),
+            subDays(new Date("2022/12/10"), 2),
+            subDays(new Date("2022/12/10"), 1),
+          ],
+        },
+/*         {
+          "react-datepicker__day--highlighted-custom-2": [
+            addDays(new Date("2022/12/10"), 1),
+            addDays(new Date("2022/12/10"), 2),
+            addDays(new Date("2022/12/10"), 3),
+            addDays(new Date("2022/12/10"), 4),
+          ],
+        }, */
+      ];
+
+    
     useEffect(() => {
       getData()
     }, [])
@@ -55,6 +81,14 @@ export default function BandAttendance(props) {
       Attendanc details
     </Typography>
     <Box component="form" onSubmit={handleSave} noValidate sx={{ mt: 1 }}>
+    <DatePicker
+      selected={startDate}
+      onChange={(date) => setStartDate(date)}
+      highlightDates={highlightWithRanges}
+      placeholderText="Please select day"
+      openToDate={new Date("2022/12/02")}
+      //highlightDates={[subDays(new Date("2022/12/10"), 0), addDays(new Date("2022/12/18"), 0)]}
+    />
         <TextField
             margin="normal"
             fullWidth
