@@ -68,6 +68,7 @@ module.exports.select = async (req, res) => {
             _id, 
             {currentFestival}, 
             {new: true})
+            //.populate('currentFestival')
             //.populate({path: 'currentFestival', select: 'name'})
             
         //console.log("🚀 ~ updateCurrentFestival", updateCurrentFestival)

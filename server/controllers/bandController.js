@@ -179,6 +179,42 @@ module.exports.list = async (req, res) => {
         
     }
 }
+module.exports.list2 = async (req, res) => {
+    try {
+
+        const owner = req.params
+
+        const bands = await Band.find(owner)
+        .sort('-_id')
+        .populate('attendance')
+
+        res.send({success: true, bands})
+
+    } catch (error) {
+        
+        console.log("🚀 ~ Error in list2 band", error.message)
+        res.send({success: false, error: error.message})
+        
+    }
+}
+module.exports.listCurrentFestival = async (req, res) => {
+    try {
+
+        const {owner, currentFestival} = req.params
+
+        const bands = await Band.find({$and: [{owner}, {festivals: currentFestival}]})
+        .sort('-_id')
+        .populate('attendance') 
+
+        res.send({success: true, bands})
+
+    } catch (error) {
+        
+        console.log("🚀 ~ Error in listCurrentFestival", error.message)
+        res.send({success: false, error: error.message})
+        
+    }
+}
 
 module.exports.singleband = async (req, res) => {
     try {

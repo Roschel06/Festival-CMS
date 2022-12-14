@@ -67,6 +67,21 @@ module.exports.list = async (req, res) => {
         
     }
 }
+module.exports.festivalAttendance = async (req, res) => {
+    try {
+        console.log("🚀 ~ list parmas", req.params)
+        
+        const allAttendance = await Bandattendance.find({festival: req.params.id})
+        console.log("🚀 ~ allAttendance", allAttendance)
+        res.send({success: true, allAttendance})
+
+    } catch (error) {
+        
+        console.log("🚀 ~ Error in festivalAttendance", error.message)
+        res.send({success: false, error: error.message})
+        
+    }
+}
 module.exports.singleAttendance = async (req, res) => {
     try {
         

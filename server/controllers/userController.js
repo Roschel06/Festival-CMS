@@ -70,6 +70,8 @@ module.exports.login = async (req, res) => {
 
         const userFound = await User.findOne({email, verified: true})
         .populate({path: 'festivals', select: 'name'})
+        //.populate({path: 'currentFestival', select: 'name'})
+        //.populate('currentFestival')
         //.populate({path: 'bands', select: 'name'})
         .select('-__v')
 

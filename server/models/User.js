@@ -33,11 +33,11 @@ const userSchema = new Schema({
             default: false
         },
         currentFestival: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.ObjectId,
             ref: 'Festival'
         },
         festivals: [{
-            type: Schema.Types.ObjectId,
+            type: mongoose.ObjectId,
             ref: 'Festival'
         }],
         stages: [{

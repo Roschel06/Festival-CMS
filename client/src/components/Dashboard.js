@@ -17,16 +17,34 @@ export default function Dashboard() {
   const navigate = useNavigate()
   const {state, dispatch} = useContext(AppContext)
   const [user, setUser] = useState({...state.user})
-  console.log("🚀 ~ user", state.user)
+  const [bands, setBands] = useState({})
+  const [bandsCurrentFestival, setBandsCurrentFestival] = useState({})
   
   useEffect(() => {
       getData()
+      getData2()
+      getBandsInCurrentFestival()
   }, [])
 
   const getData = async () => {
     const {data} = await axios.get('/bands/list')
     setUser(data)
-  } 
+  }
+const getData2 = async () => {
+  const response = await axios.get(`/bands/list/${state.user._id}`)
+  setBands(response)
+} 
+
+const getBandsInCurrentFestival = async () => {
+  const response = await axios.get(`/bands/list/${state.user._id}/${state.user.currentFestival}`)
+  setBandsCurrentFestival(response)
+      
+  if (response.data.success) {
+    console.log("🚀 ~ Yeah it works!")     
+  } else {
+    console.log('There was an error');
+  }
+}
 
   const filteredBands = user.bands.filter(item => item.owner === state.user._id)
   const newFilteredBands = user.bands.filter(item => item.owner === state.user._id && item.festivals.includes(state.user.currentFestival))   
@@ -50,7 +68,7 @@ return (
                       Bands
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{marginLeft: 'auto', fontWeight: 500}}>
-                      {newFilteredBands.length}
+                      {bandsCurrentFestival?.data?.bands.length}
                     </Typography>
                   </CardActionArea>
                   <Divider />
@@ -59,7 +77,7 @@ return (
                       Recently added
                     </Typography>
                     <div className="card__list">
-                      {newFilteredBands.slice(0, 8).map((item, idx) => {
+                      {bandsCurrentFestival?.data?.bands.slice(0, 8).map((item, idx) => {
                           return <Link key={idx} to={`/bands/${item._id}`}>{item.name}</Link>
                       })}
                     </div>
@@ -88,7 +106,7 @@ return (
                       Bands in DB
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{marginLeft: 'auto', fontWeight: 500}}>
-                      {filteredBands.length}
+                      {bands?.data?.bands.length}
                     </Typography>
                   </CardActionArea>
                   <Divider />
@@ -97,7 +115,7 @@ return (
                       Recently added
                     </Typography>
                     <div className="card__list">
-                      {filteredBands.slice(0, 8).map((item, idx) => {
+                      {bands?.data?.bands.slice(0, 8).map((item, idx) => {
                           return <Link key={idx} to={`/bands/${item._id}`}>{item.name}</Link>
                       })}
                     </div>

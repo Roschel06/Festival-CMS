@@ -6,6 +6,8 @@ const bandController = require('../controllers/bandController');
 router.post('/add', cloudinaryUpload.single('image'), bandController.add)
 router.patch('/addToFestival', bandController.addToFestival)
 router.get('/list', bandController.list)
+router.get('/list/:owner', bandController.list2)
+router.get('/list/:owner/:currentFestival', bandController.listCurrentFestival)
 router.get('/:id', bandController.singleband)
 router.patch('/:id/edit', cloudinaryUpload.single('image'), bandController.edit)
 router.delete('/:id/delete', bandController.delete)

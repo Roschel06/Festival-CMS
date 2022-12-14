@@ -5,5 +5,6 @@ const bandAttendanceController = require('../controllers/bandAttendanceControlle
 router.post('/add', bandAttendanceController.add)
 router.get('/list/:owner', bandAttendanceController.list)
 router.get('/:id', bandAttendanceController.singleAttendance)
+router.get('/festival/:id', bandAttendanceController.festivalAttendance)
 //router.patch('/:id/edit', bandAttendanceController.edit)
 module.exports = router;
