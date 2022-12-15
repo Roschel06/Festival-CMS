@@ -20,9 +20,9 @@ export default function BandAttendance(props) {
     const [band, setBand] = useState({})
     const [attendance, setAttendance] = useState ({})
 
-    const [startDate, setStartDate] = useState();
+    // const [startDate, setStartDate] = useState();
 
-    const highlightWithRanges = [
+    /* const highlightWithRanges = [
         {
           "react-datepicker__day--highlighted-custom-1": [
             subDays(new Date("2022/12/10"), 4),
@@ -38,8 +38,8 @@ export default function BandAttendance(props) {
             addDays(new Date("2022/12/10"), 3),
             addDays(new Date("2022/12/10"), 4),
           ],
-        }, */
-      ];
+        }, 
+      ]; */
 
     
     useEffect(() => {
@@ -78,17 +78,17 @@ export default function BandAttendance(props) {
 <Container component="main" maxWidth="xs">
     <Box sx={boxStyle}> 
     <Typography component="h1" variant="h5">
-      Attendanc details
+      Attendance details
     </Typography>
     <Box component="form" onSubmit={handleSave} noValidate sx={{ mt: 1 }}>
-    <DatePicker
+{/*     <DatePicker
       selected={startDate}
       onChange={(date) => setStartDate(date)}
       highlightDates={highlightWithRanges}
       placeholderText="Please select day"
       openToDate={new Date("2022/12/02")}
       //highlightDates={[subDays(new Date("2022/12/10"), 0), addDays(new Date("2022/12/18"), 0)]}
-    />
+    /> */}
         <TextField
             margin="normal"
             fullWidth

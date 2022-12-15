@@ -1,3 +1,4 @@
+//import { ObjectId } from 'mongodb'
 const Festival = require('../models/Festival')
 const User = require('../models/User')
 
@@ -161,6 +162,51 @@ module.exports.addBands = async (req, res) => {
         
         console.log("🚀 ~ currentFestival is", festival)
 
+
+        const arraydestination = festival.bands
+        console.log("🚀 ~ arraydestination", arraydestination)
+
+
+        let arraySource;
+
+
+/*     const itemsToAdd = arraysource.filter(item => !arraydestination.includes(item))     
+
+    if (itemstoadd.length)  arraydestination.push([...itemstoadd]) */
+
+//(Festival.findByIdAndUpdate(some id), {thearray: arraydestination})
+
+
+
+
+
+
+
+
+/*         const festival = await Festival.findOne({_id: currentFestival})
+        selectedRows.id.forEach(function(row){
+            if(!festival.find({bands: {$in: {row}}})){
+                $push : {bands: ObjectId(row)}
+            }            
+        }) */
+
+/*         const objectId = new ObjectId('your-object-id-as-string') 
+
+        const festival = await Festival.findOneAndUpdate({_id: currentFestival},
+            {
+                selectedRows.forEach(function(row){
+                    if(!festival.find({bands: [{row}]})){
+                        $push : {bands: ObjectId(row)}
+                    }            
+
+            })
+        }) */
+
+
+
+
+
+/* 
         let notDouble = [];
 
         for (let i = 0; i < selectedRows.length; i++) {          
@@ -169,7 +215,7 @@ module.exports.addBands = async (req, res) => {
             }else{
                 console.log('Will be added ', selectedRows[i].id);
             }
-          }
+          } */
             
 /*               for (let i = 0; i < selectedRows.length; i++) {
                         console.log('selectedRows: ', selectedRows[i].id);

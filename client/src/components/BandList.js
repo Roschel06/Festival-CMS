@@ -1,8 +1,10 @@
+import React from 'react'
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import {Typography, Modal} from '@mui/material';
 import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
+import InfoIcon from '@mui/icons-material/Info';
 
 import {useState, useContext, useEffect} from 'react'
 import axios from 'axios'
@@ -21,6 +23,25 @@ export default function BandList() {
   const [allAttendance, setAllAttendance] = useState([])
   const [selectedRows, setSelectedRows] = useState([])
   console.log("🚀 ~ selectedRows", selectedRows)
+
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 800,
+    textAlign: 'center',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
   
   useEffect(() => {
       getData()
@@ -122,9 +143,8 @@ export default function BandList() {
       sortable: false,
       width: 160,
     }, */
-    { field: 'stage', headerName: 'Stage', flex: 1},
-    { field: 'link', headerName: 'Link', flex: 1, renderCell: (params) => {
-      return <Typography component="body2" component={Link} to={`/bands/${params.id}`}>Details</Typography>;
+    { field: 'details', headerName: 'Details', flex: 1, sortable: false, renderCell: (params) => {
+      return <Typography component="body2" component={Link} to={`/bands/${params.id}`}><InfoIcon/></Typography>;
     } },
   ];   
 
@@ -174,8 +194,8 @@ export default function BandList() {
     { field: 'stage', headerName: 'Stage', flex: 1},
     { field: 'day', headerName: 'Day', flex: 1},
     { field: 'time', headerName: 'Time', flex: 1},
-    { field: 'link', headerName: 'Link', flex: 1, renderCell: (params) => {
-      return <Typography component="body2" component={Link} to={`/bands/${params.id}`}>Details</Typography>;
+    { field: 'details', headerName: 'Details', flex: 1, sortable: false, renderCell: (params) => {
+      return <Typography component="body2" component={Link} to={`/bands/${params.id}`}><InfoIcon/></Typography>;
     } },
   ];
 
@@ -189,46 +209,27 @@ export default function BandList() {
         <Typography component="h1" variant="h5">
             Actions
         </Typography>
-      <Box sx={buttonBoxStyle}>
-      <Button
-        component={Link}
-        onClick={sendSelectedBandsToFestival}
-        variant="outlined"
-        sx={{ m: 1, minWidth: '140px'}}
-      >
-        Add from DB
-      </Button>
-      <Button
-          component={Link}
-          to={'/add-band'} 
-            fullWidth
-            variant="contained"
-            sx={{ m: 1, minWidth: '140px'}}
+        <Box sx={{buttonBoxStyle, textAlign: 'center', mt: 2}}>
+          <Button
+            component={Link}
+            onClick={handleOpen}
+            variant="outlined"
+            sx={{ m: 1, width: 'auto'}}
           >
-            Add new band
-        </Button>
-    </Box>
+            Add from DB
+          </Button>
+          <Button
+              component={Link}
+              to={'/add-band'} 
+                fullWidth
+                variant="contained"
+                sx={{ m: 1, width: 'auto'}}
+              >
+                Add new band
+            </Button>
+        </Box>
       </Box>
-        <Box sx={boxStyle}>  
-           <Typography component="h1" variant="h5">
-               Bands in Database
-           </Typography>
-  
-       {/*     {filteredBands.map((item, idx) => {
-               return <Link key={idx} to={`/bands/${item._id}`}>{item.name}, {item.countryOfOrigin}</Link>
-           })} */}
-            <div style={{ height: 400, width: '100%' }}>
-              <DataGrid
-                rows={rows}
-                columns={columns}
-                loading={!bands?.data?.bands.length}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
-                checkboxSelection
-                onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
-              />
-            </div>
-           </Box>
+
            <Box sx={boxStyle}>  
            <Typography component="h1" variant="h5">
                Bands in {state.user.currentFestival}
@@ -245,6 +246,46 @@ export default function BandList() {
               />
             </div>
            </Box>
+           <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Select bands from the database and add them to the current festival
+                </Typography>
+                <Button
+                  component={Link}
+                  onClick={sendSelectedBandsToFestival}
+                  variant="contained"
+                  sx={{ m: 1, mt: '2rem'}}
+                >
+                  Add selected bands
+                </Button>
+                <Box sx={boxStyle}>  
+                <Typography component="h1" variant="h5">
+                    Bands in Database
+                </Typography>
+        
+            {/*     {filteredBands.map((item, idx) => {
+                    return <Link key={idx} to={`/bands/${item._id}`}>{item.name}, {item.countryOfOrigin}</Link>
+                })} */}
+                  <div style={{ height: 400, width: '100%' }}>
+                    <DataGrid
+                      rows={rows}
+                      columns={columns}
+                      loading={!bands?.data?.bands.length}
+                      pageSize={10}
+                      rowsPerPageOptions={[10]}
+                      checkboxSelection
+                      onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
+                    />
+                  </div>
+                </Box>
+              </Box>
+            </Modal>
        </Container>
   )
 }

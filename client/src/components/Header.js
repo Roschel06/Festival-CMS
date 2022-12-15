@@ -141,7 +141,7 @@ console.log('Header data is', data); */
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} onMouseOver={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick={handleOpenUserMenu} /* onMouseOver={handleOpenUserMenu} */ sx={{ p: 0 }}>
                 <Avatar alt={state.user.firstName} src={'/images/' + data.image}  sx={{ color: "#ffffff", bgcolor: ' rgb(255 255 255 / 25%)' }}/>
               </IconButton>
             </Tooltip>
@@ -161,7 +161,7 @@ console.log('Header data is', data); */
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-             <Typography sx={{ pl: '16px', pr: '16px', fontWeight: 'bold', color: '#8f91a9' }}>General database</Typography>
+{/*              <Typography sx={{ pl: '16px', pr: '16px', fontWeight: 'bold', color: '#8f91a9' }}>General database</Typography>
               {dataBase.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">
@@ -169,7 +169,7 @@ console.log('Header data is', data); */
                   </Typography>
                 </MenuItem>
               ))}
-              <Divider />
+              <Divider /> */}
 {/*               <MenuItem onClick={handleLogout}>
                   <Typography textAlign="center">
                     <Link style={{textDecoration: "none"}} to={'/profile'}>Profile</Link>
